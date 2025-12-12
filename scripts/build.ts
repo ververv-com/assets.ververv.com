@@ -101,7 +101,7 @@ async function build() {
         }
 
         // 6. 生成 CNAME 文件（GitHub Pages 自定义域名）
-        const customDomain = 'assets.ververv.com';
+        const customDomain = 's.ververv.com';
         await fs.writeFile(path.join(PATHS.dist, 'CNAME'), customDomain);
         console.log(`✓ CNAME 文件已生成: ${customDomain}`);
 
