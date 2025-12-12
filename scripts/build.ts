@@ -2,54 +2,83 @@ import fs from 'fs-extra';
 import path from 'path';
 import ejs from 'ejs';
 
-// 类型定义 - 规范 data/apps.json 的格式
+// 类型定义
+interface ThirdPartyService {
+    name: string;
+    url?: string;
+}
+
 interface AppConfig {
-    key: string;          // 例如: "photocleaner"
-    name: string;         // 例如: "Photo Cleaner"
-    email: string;        // 例如: "support@..."
-    updated_date: string; // 例如: "December 12, 2025"
-    has_iap: boolean;     // 是否有内购
+    key: string;
+    name: string;
+    email: string;
+    updated_date: string;
+    has_iap: boolean;
+    third_party_services: ThirdPartyService[];
+    pages: string[];
 }
 
 // 路径配置
 const ROOT = path.resolve(__dirname, '..');
 const PATHS = {
     data: path.join(ROOT, 'data', 'apps.json'),
-    template: path.join(ROOT, 'templates', 'privacy.ejs'),
+    templates: path.join(ROOT, 'templates'),
     static: path.join(ROOT, 'static'),
     dist: path.join(ROOT, 'dist')
 };
 
+// 支持的页面类型
+const PAGE_TEMPLATES: Record<string, string> = {
+    privacy: 'privacy.ejs',
+    terms: 'terms.ejs'
+};
+
 async function build() {
-    console.log('🚀 [TypeScript] 开始构建...');
+    console.log('🚀 [Build] 开始构建...');
 
     try {
-        // A. 清理旧构建
+        // 1. 清理旧构建
         await fs.emptyDir(PATHS.dist);
+        console.log('🗑️  已清理 dist 目录');
 
-        // B. 复制公共资源 (如果有)
+        // 2. 复制静态资源
         if (await fs.pathExists(PATHS.static)) {
             await fs.copy(PATHS.static, path.join(PATHS.dist, 'assets'));
             console.log('📦 已复制静态资源');
         }
 
-        // C. 读取数据
+        // 3. 读取配置
         const apps: AppConfig[] = await fs.readJson(PATHS.data);
-        const template = await fs.readFile(PATHS.template, 'utf-8');
+        console.log(`📋 读取到 ${apps.length} 个 App 配置`);
 
-        // D. 遍历 App 生成页面
+        // 4. 为每个 App 生成页面
         for (const app of apps) {
-            console.log(`👉 正在构建: ${app.name} (${app.key})`);
+            console.log(`\n👉 正在构建: ${app.name} (${app.key})`);
 
-            // 目标目录: /dist/photocleaner
             const appDir = path.join(PATHS.dist, app.key);
             await fs.ensureDir(appDir);
 
-            // 1. 生成 HTML
-            const html = ejs.render(template, app);
-            await fs.writeFile(path.join(appDir, 'privacy.html'), html);
+            // 生成配置的页面
+            for (const pageType of app.pages) {
+                const templateFile = PAGE_TEMPLATES[pageType];
+                if (!templateFile) {
+                    console.warn(`   ⚠️  未知页面类型: ${pageType}`);
+                    continue;
+                }
 
-            // 2. 生成 JSON 配置 (给 App 代码用的)
+                const templatePath = path.join(PATHS.templates, templateFile);
+                if (!await fs.pathExists(templatePath)) {
+                    console.warn(`   ⚠️  模板不存在: ${templateFile}`);
+                    continue;
+                }
+
+                const template = await fs.readFile(templatePath, 'utf-8');
+                const html = ejs.render(template, app);
+                await fs.writeFile(path.join(appDir, `${pageType}.html`), html);
+                console.log(`   ✓ ${pageType}.html`);
+            }
+
+            // 生成 config.json
             const appConfig = {
                 app_name: app.name,
                 contact: app.email,
@@ -59,12 +88,23 @@ async function build() {
                 path.join(appDir, 'config.json'),
                 JSON.stringify(appConfig, null, 2)
             );
+            console.log('   ✓ config.json');
         }
 
-        console.log('✅ 构建成功!');
+        // 5. 生成首页
+        const indexTemplatePath = path.join(PATHS.templates, 'index.ejs');
+        if (await fs.pathExists(indexTemplatePath)) {
+            const indexTemplate = await fs.readFile(indexTemplatePath, 'utf-8');
+            const indexHtml = ejs.render(indexTemplate, { apps });
+            await fs.writeFile(path.join(PATHS.dist, 'index.html'), indexHtml);
+            console.log('\n✓ 首页 index.html 已生成');
+        }
+
+        console.log('\n✅ 构建成功!');
+        console.log(`📁 输出目录: ${PATHS.dist}`);
 
     } catch (err) {
-        console.error('❌ 构建失败:', err);
+        console.error('\n❌ 构建失败:', err);
         process.exit(1);
     }
 }

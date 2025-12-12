@@ -4,6 +4,13 @@
     "name": "Photo Cleaner",
     "email": "support@photocleaner.ververv.com",
     "updated_date": "December 12, 2025",
-    "has_iap": true
+    "has_iap": true,
+    "third_party_services": [
+      {
+        "name": "One Signal",
+        "url": "https://onesignal.com/privacy_policy"
+      }
+    ],
+    "pages": ["privacy"]
   }
 ]
