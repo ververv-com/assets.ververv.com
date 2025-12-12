@@ -1,0 +1,32 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node:*)",
+      "Bash(npx tsx:*)",
+      "WebFetch(domain:*)",
+      "Read(//Users/yanghaibin/**)",
+      "Bash(xxd:*)",
+      "Bash(curl:*)",
+      "WebSearch",
+      "Bash(brew list:*)",
+      "Bash(python:*)",
+      "Bash(pnpm run:*)",
+      "Bash(npx tsc:*)",
+      "Bash(export:*)",
+      "Bash(psql:*)",
+      "Bash(source:*)",
+      "Bash(grep:*)",
+      "Bash(echo $DATABASE_URL)",
+      "Bash(git log:*)",
+      "Bash(git rev-parse:*)",
+      "mcp__perplexity__search",
+      "Bash(scp:*)",
+      "Bash(ssh:*)",
+      "Bash(sed:*)",
+      "Bash(tree:*)",
+      "Bash(ls:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
