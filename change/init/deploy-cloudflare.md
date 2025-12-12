@@ -5,138 +5,129 @@
 | 项目 | 值 |
 |------|-----|
 | 项目名称 | `assets-ververv-com` |
+| 项目类型 | **Pages**（非 Workers） |
 | Pages 域名 | `assets-ververv-com.pages.dev` |
-| 自定义域名 | `assets.ververv.com`（配置中） |
+| 自定义域名 | `assets.ververv.com` |
 | 部署时间 | 2025-12-12 |
 
 ---
 
 ## 可访问 URL
 
-**Pages.dev 域名**（已生效）：
+**Pages.dev 域名**：
 - 首页：https://assets-ververv-com.pages.dev/
 - 隐私协议：https://assets-ververv-com.pages.dev/photocleaner/privacy.html
 - 配置文件：https://assets-ververv-com.pages.dev/photocleaner/config.json
 
-**自定义域名**（SSL 证书待生效）：
+**自定义域名**：
 - 首页：https://assets.ververv.com/
 - 隐私协议：https://assets.ververv.com/photocleaner/privacy.html
 
 ---
 
-## 部署配置
+## Cloudflare Pages 配置清单
 
-### Build Settings
+基于 GitHub 仓库 (`com-ververv/assets.ververv.com`)：
 
-| 配置项 | 值 |
-|--------|-----|
-| Build command | `pnpm install && pnpm run build` |
-| Deploy command | `npx wrangler pages deploy dist --project-name=assets-ververv-com --commit-dirty=true` |
-| Root directory | `/` |
-
-### 首次部署命令（含创建项目）
-
-```bash
-npx wrangler pages project create assets-ververv-com --production-branch=main && npx wrangler pages deploy dist --project-name=assets-ververv-com --commit-dirty=true
-```
-
-### 后续部署命令（项目已存在）
-
-```bash
-npx wrangler pages deploy dist --project-name=assets-ververv-com --commit-dirty=true
-```
+| 配置项 | 设置值 | 说明 |
+|--------|--------|------|
+| 项目类型 | Pages | 连接 Git 仓库 |
+| 构建命令 | `pnpm install && pnpm run build` | 先安装依赖，再执行 TS 构建脚本 |
+| 输出目录 | `dist` | 告诉 Cloudflare 网页文件生成在哪里 |
+| 框架预设 | None | 自定义 Node.js 脚本，不需要预设 |
+| 环境变量 | `NODE_VERSION: 18` | 确保 Node 版本兼容 |
+| 自定义域名 | `assets.ververv.com` | 绑定在 Pages 项目上 |
 
 ---
 
-## 部署过程遇到的问题
+## 问题排查复盘
 
-### 问题 1：Must specify a project name
+### 问题现象
 
-**错误信息**：
-```
-✘ [ERROR] Must specify a project name.
-```
-
-**解决方案**：
-Deploy command 添加 `--project-name=assets-ververv-com` 参数。
+1. **无法访问**：自定义域名无法打开，报错涉及 SSL 或连接重置
+2. **内容错误**：网络通了，但访问页面只返回 "Hello World"，而不是仓库里的 HTML 内容
 
 ---
 
-### 问题 2：Authentication error
-
-**错误信息**：
-```
-✘ [ERROR] A request to the Cloudflare API failed.
-Authentication error [code: 10000]
-```
-
-**解决方案**：
-创建新的 API Token，需包含 **Cloudflare Pages - Edit** 权限。
-
----
-
-### 问题 3：Project not found
-
-**错误信息**：
-```
-✘ [ERROR] Project not found. The specified project name does not match any of your existing projects.
-```
-
-**解决方案**：
-首次部署需要先创建项目：
-```bash
-npx wrangler pages project create assets-ververv-com --production-branch=main
-```
-
----
-
-### 问题 4：自定义域名 SSL 证书未生效
+### 障碍 1：SSL 模式导致的死循环
 
 **现象**：
-- DNS 解析正确（104.21.89.73, 172.67.156.243）
-- 但 HTTPS 访问失败，SSL 握手错误
+```
+ERR_TOO_MANY_REDIRECTS
+```
 
 **原因**：
-自定义域名需要在 Workers & Pages 项目中配置，Cloudflare 才会自动签发 SSL 证书。
+Cloudflare SSL/TLS 设置为 **Flexible**。Worker/Pages 默认走 HTTPS，Cloudflare 却试图用 HTTP 回源，导致无限重定向。
 
-**配置步骤**：
-1. Workers & Pages → assets-ververv-com → Settings
-2. Domains & Routes → + Add → Custom domain
-3. 输入 `assets.ververv.com`
-4. 等待 SSL 证书生成（5-15 分钟）
-
-**注意**：
-- 不要手动添加 CNAME DNS 记录
-- 让 Cloudflare 在添加自定义域名时自动创建 DNS 记录
+**解决**：
+将 SSL/TLS 模式改为 **Full** 或 **Full (Strict)**。
 
 ---
 
-### 问题 5：域名已在使用
+### 障碍 2：本地网络环境干扰 (Fake IP)
 
-**错误信息**：
+**现象**：
 ```
-This domain is already in use. Please delete the corresponding record in DNS settings.
+SSL_ERROR_SYSCALL
 ```
+解析 IP 为 `198.18.0.57`（属于 198.18.0.0/15 保留地址段）
 
-**解决方案**：
-1. 先删除 DNS 中的 `assets` 记录
-2. 再在 Workers & Pages 中添加自定义域名
-3. Cloudflare 会自动创建正确的 DNS 记录
+**原因**：
+本地开启了代理软件（如 Clash）的**增强模式/Fake IP**，导致本地请求并未真正到达 Cloudflare，而是被代理软件拦截并切断。
+
+**解决**：
+- 识别出是本地环境问题
+- 通过在线工具验证或调整本地代理设置确认服务其实是正常的
+- 使用 `dig @8.8.8.8 assets.ververv.com` 验证真实 DNS 解析
+
+---
+
+### 障碍 3：路由冲突 - Worker "劫持" 了 Pages（最关键）
+
+**现象**：
+访问域名返回 "Hello World"
+
+**原因**：
+Cloudflare 账户下同时存在两个同名项目：
+
+| 项目类型 | 图标 | 内容 |
+|----------|------|------|
+| Worker 项目 | `< >` | 包含默认的 "Hello World" 脚本 |
+| Pages 项目 | `📄` | 包含真正的构建代码和 HTML |
+
+**错误配置**：域名 `assets.ververv.com` 被绑定到了 **Worker** 上。由于 Worker 优先级极高，它拦截了所有请求并返回脚本里的 "Hello World"，导致请求根本没机会到达 Pages 仓库。
+
+**解决**：
+从 Worker 上解绑域名，重新绑定到 Pages 上。
+
+---
+
+## Workers vs Pages 关键区别
+
+| 对比项 | Workers (`< >`) | Pages (`📄`) |
+|--------|-----------------|--------------|
+| 角色 | 门口的**保安** | 身后的**仓库/工厂** |
+| 特长 | 逻辑拦截、API 转发、边缘计算 | 连接 GitHub、执行构建、托管静态文件 |
+| 行为 | 代码写什么就返回什么 | 把代码编译成网页展示给用户 |
+| 适用场景 | API、中间件、边缘函数 | 静态网站、前端应用 |
+
+**一句话总结**：如果你有 `dist/` 文件夹或者需要 `build` 生成 HTML，请永远选择 **Pages**，并把域名绑在 Pages 上。
 
 ---
 
 ## 自定义域名配置检查清单
 
-- [ ] Workers & Pages 项目中添加了自定义域名
-- [ ] 域名状态显示 Active
-- [ ] SSL/TLS → Edge Certificates 中有对应证书
-- [ ] SSL/TLS 模式为 Full 或 Full (strict)
-- [ ] DNS 记录由 Cloudflare 自动管理
+- [x] 使用 Pages 项目（非 Workers）
+- [x] Pages 项目中添加了自定义域名
+- [x] 域名状态显示 Active
+- [x] SSL/TLS 模式为 Full 或 Full (strict)
+- [x] DNS 记录由 Cloudflare 自动管理
+- [x] 确认没有 Worker 项目绑定同一域名
 
 ---
 
 ## 相关文档
 
-- [Cloudflare Workers Custom Domains](https://developers.cloudflare.com/workers/configuration/routing/custom-domains/)
 - [Cloudflare Pages Custom Domains](https://developers.cloudflare.com/pages/configuration/custom-domains/)
+- [Cloudflare Workers Custom Domains](https://developers.cloudflare.com/workers/configuration/routing/custom-domains/)
 - [General SSL Errors](https://developers.cloudflare.com/ssl/troubleshooting/general-ssl-errors/)
