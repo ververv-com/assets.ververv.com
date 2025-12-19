@@ -22,8 +22,17 @@
             
             --bg-color: #ffffff;
             --bg-secondary: #f5f5f7;
+            
+            /* Alternating backgrounds for better contrast */
+            --bg-hero: radial-gradient(circle at 50% 0%, rgba(var(--primary-rgb), 0.12) 0%, transparent 70%), #f5f5f7;
+            --bg-features: #ffffff;
+            --bg-support: #f5f5f7;
+            --bg-footer: #1d1d1f;
+            
             --text-primary: #1d1d1f;
             --text-secondary: #86868b;
+            --text-footer: #86868b;
+            --text-footer-hover: #ffffff;
             --border-color: #d2d2d7;
             
             --radius-large: 28px;
@@ -151,14 +160,30 @@
             color: white;
         }
 
+        .nav-link {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            margin-right: 24px;
+            transition: color 0.2s;
+        }
+
+        .nav-link:hover {
+            color: var(--text-primary);
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+        }
+
         /* Hero */
         .hero {
-            padding: 160px 0 100px;
+            padding: 120px 0 60px;
             text-align: center;
             position: relative;
             overflow: hidden;
-            /* Subtle gradient background */
-            background: radial-gradient(circle at 50% 0%, rgba(var(--primary-rgb), 0.08) 0%, transparent 60%);
+            background: var(--bg-hero);
         }
 
         .hero-content {
@@ -232,15 +257,15 @@
 
         /* Features */
         .features {
-            padding: 120px 0;
-            background: #fff;
+            padding: 80px 0 120px;
+            background: var(--bg-features);
         }
 
         .feature-item {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 160px;
+            margin-bottom: 120px;
             gap: 80px;
         }
         
@@ -312,7 +337,7 @@
         /* Support / FAQ */
         .support {
             padding: 120px 0;
-            background: var(--bg-secondary);
+            background: var(--bg-support);
             border-top: 1px solid rgba(0,0,0,0.05);
         }
 
@@ -392,20 +417,39 @@
 
         /* Footer */
         .footer {
-            background: #fff;
-            padding: 60px 0;
-            border-top: 1px solid var(--border-color);
+            background: var(--bg-footer);
+            padding: 80px 0 40px;
+            color: var(--text-footer);
+            border-top: none;
         }
 
         .footer-content {
             display: flex;
-            justify-content: space-between;
+            flex-direction: column;
             align-items: center;
+            gap: 40px;
+        }
+        
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #fff;
+            font-weight: 600;
+            font-size: 18px;
+            margin-bottom: 8px;
+        }
+
+        .footer-logo img {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
         }
         
         .copyright {
-            font-size: 14px;
-            color: var(--text-secondary);
+            font-size: 13px;
+            color: var(--text-footer);
+            opacity: 0.6;
         }
 
         .footer-links {
@@ -415,17 +459,18 @@
 
         .footer-links a {
             font-size: 14px;
-            color: var(--text-secondary);
+            color: var(--text-footer);
             font-weight: 500;
+            transition: color 0.2s;
         }
         
         .footer-links a:hover {
-            color: var(--text-primary);
+            color: var(--text-footer-hover);
         }
 
         /* Mobile */
         @media (max-width: 768px) {
-            .hero { padding: 120px 0 60px; }
+            .hero { padding: 100px 0 60px; }
             .hero-title { font-size: 40px; }
             .hero-subtitle { font-size: 20px; }
             
@@ -433,7 +478,7 @@
                 flex-direction: column;
                 text-align: center;
                 gap: 48px;
-                margin-bottom: 100px;
+                margin-bottom: 80px;
             }
             
             .feature-item:nth-child(even) {
@@ -442,15 +487,10 @@
             
             .feature-content { max-width: 100%; }
             
-            .footer-content {
-                flex-direction: column-reverse;
-                gap: 32px;
-            }
-            
             .footer-links {
                 flex-direction: column;
                 align-items: center;
-                gap: 16px;
+                gap: 20px;
             }
         }
     </style>
@@ -464,7 +504,10 @@
                 <img src="../../assets/<%= homepage.app_icon %>" alt="<%= name %>">
                 <%= name %>
             </a>
-            <a href="<%= homepage.app_store_url %>" class="nav-download">Download</a>
+            <div class="nav-right">
+                <a href="#support" class="nav-link">FAQ</a>
+                <a href="<%= homepage.app_store_url %>" class="nav-download">Download</a>
+            </div>
         </div>
     </nav>
 
@@ -533,14 +576,21 @@
     <!-- Footer -->
     <footer class="footer">
         <div class="container footer-content">
-            <div class="copyright">
-                &copy; <%= new Date().getFullYear() %> <%= homepage.company_name || name %>. All rights reserved.
+            <div class="footer-logo">
+                <img src="../../assets/<%= homepage.app_icon %>" alt="<%= name %>">
+                <span><%= name %></span>
             </div>
+            
             <div class="footer-links">
                 <a href="../privacy/">Privacy Policy</a>
                 <% if (pages.includes('terms')) { %>
                 <a href="../terms/">Terms of Use</a>
                 <% } %>
+                <a href="mailto:<%= email %>">Contact</a>
+            </div>
+
+            <div class="copyright">
+                &copy; <%= new Date().getFullYear() %> <%= homepage.company_name || name %>. All rights reserved.
             </div>
         </div>
     </footer>
