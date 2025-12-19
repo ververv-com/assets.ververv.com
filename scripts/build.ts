@@ -85,7 +85,8 @@ async function build() {
             const appDir = path.join(PATHS.dist, app.key);
             await fs.ensureDir(appDir);
 
-            // 生成配置的页面
+            // 生成配置的页面（Clean URLs: 每个页面输出到独立子目录）
+            let hasHomepage = false;
             for (const pageType of app.pages) {
                 const templateFile = PAGE_TEMPLATES[pageType];
                 if (!templateFile) {
@@ -101,17 +102,44 @@ async function build() {
 
                 const template = await fs.readFile(templatePath, 'utf-8');
                 const html = ejs.render(template, app);
-                // homepage 输出为 index.html，其他页面按原名输出
-                const outputFileName = pageType === 'homepage' ? 'index.html' : `${pageType}.html`;
-                await fs.writeFile(path.join(appDir, outputFileName), html);
-                console.log(`   ✓ ${outputFileName}`);
+
+                // Clean URLs: 输出到子目录，文件名为 index.html
+                // homepage → home/index.html
+                // privacy  → privacy/index.html
+                const outputDir = pageType === 'homepage' ? 'home' : pageType;
+                const pageDir = path.join(appDir, outputDir);
+                await fs.ensureDir(pageDir);
+                await fs.writeFile(path.join(pageDir, 'index.html'), html);
+                console.log(`   ✓ ${outputDir}/index.html`);
+
+                if (pageType === 'homepage') {
+                    hasHomepage = true;
+                }
+            }
+
+            // 如果有 homepage，生成根目录重定向到 home/
+            if (hasHomepage) {
+                const redirectHtml = `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="refresh" content="0;url=home/">
+    <link rel="canonical" href="home/">
+    <title>Redirecting...</title>
+</head>
+<body>
+    <p>Redirecting to <a href="home/">home/</a></p>
+</body>
+</html>`;
+                await fs.writeFile(path.join(appDir, 'index.html'), redirectHtml);
+                console.log('   ✓ index.html (redirect)');
             }
 
             // 生成 config.json
             const appConfig = {
                 app_name: app.name,
                 contact: app.email,
-                privacy_policy_url: `https://assets.ververv.com/${app.key}/privacy.html`
+                privacy_policy_url: `https://s.ververv.com/${app.key}/privacy/`
             };
             await fs.writeFile(
                 path.join(appDir, 'config.json'),

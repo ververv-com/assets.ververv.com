@@ -406,12 +406,12 @@
     <!-- Hero Section -->
     <section class="hero">
         <div class="hero-content">
-            <img class="app-icon" src="../assets/<%= homepage.app_icon %>" alt="<%= name %> Icon">
+            <img class="app-icon" src="../../assets/<%= homepage.app_icon %>" alt="<%= name %> Icon">
             <h1 class="app-name"><%= name %></h1>
             <p class="slogan"><%= homepage.slogan %></p>
             <p class="sub-slogan"><%= homepage.sub_slogan %></p>
             <a href="<%= homepage.app_store_url %>" class="app-store-badge">
-                <img src="../assets/common/app-store-badge.svg" alt="Download on the App Store">
+                <img src="../../assets/common/app-store-badge.svg" alt="Download on the App Store">
             </a>
         </div>
     </section>
@@ -426,7 +426,7 @@
         <% homepage.features.forEach((feature, index) => { %>
         <div class="feature-item<%= index % 2 === 1 ? ' reverse' : '' %>">
             <div class="feature-image">
-                <img src="../assets/<%= feature.image %>" alt="<%= feature.title %>">
+                <img src="../../assets/<%= feature.image %>" alt="<%= feature.title %>">
             </div>
             <div class="feature-content">
                 <span class="feature-badge">Feature <%= index + 1 %></span>
@@ -469,9 +469,9 @@
         <div class="footer-logo"><%= homepage.company_name || 'Ververv' %></div>
         <p>&copy; <%= new Date().getFullYear() %> <%= homepage.company_url || 'Ververv.com' %>. All rights reserved.</p>
         <nav>
-            <a href="/<%= key %>/privacy.html">Privacy Policy</a>
+            <a href="../privacy/">Privacy Policy</a>
             <% if (pages.includes('terms')) { %>
-            <a href="/<%= key %>/terms.html">Terms of Use</a>
+            <a href="../terms/">Terms of Use</a>
             <% } %>
         </nav>
     </footer>
