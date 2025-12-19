@@ -1,8 +1,8 @@
 [
   {
     "key": "photocleaner",
-    "name": "Photo Cleaner",
-    "email": "support@photocleaner.ververv.com",
+    "name": "CleanPhoto",
+    "email": "support@ververv.com",
     "updated_date": "December 13, 2025",
     "has_iap": true,
     "third_party_services": [
@@ -11,6 +11,52 @@
         "url": "https://onesignal.com/privacy_policy"
       }
     ],
-    "pages": ["privacy"]
+    "pages": ["homepage", "privacy"],
+    "homepage": {
+      "slogan": "Don't waste time cleaning photos.",
+      "sub_slogan": "AI-Powered Storage Cleaner. 100% Privacy. Zero Ads.",
+      "app_icon": "photocleaner/icon.svg",
+      "app_store_url": "#",
+      "theme_color": "#007AFF",
+      "features": [
+        {
+          "title": "Smart Cleanup",
+          "description": "Find duplicates and similar photos with >99% accuracy.",
+          "image": "photocleaner/feature-cleanup.svg"
+        },
+        {
+          "title": "AI Album",
+          "description": "Automatically organize photos by People, Pets, and Scenes.",
+          "image": "photocleaner/feature-ai-album.svg"
+        },
+        {
+          "title": "Privacy First",
+          "description": "All processing happens locally on your device. No cloud uploads.",
+          "image": "photocleaner/feature-privacy.svg"
+        }
+      ],
+      "faqs": [
+        {
+          "question": "Is CleanPhoto free to use?",
+          "answer": "We offer a 3-day free trial with full access to all features. After the trial, it is a paid subscription. You can cancel anytime in your Apple ID settings."
+        },
+        {
+          "question": "Are my photos safe?",
+          "answer": "Yes, absolutely. CleanPhoto processes all your photos locally on your iPhone. We do not upload your photos to any server. Your privacy is our priority."
+        },
+        {
+          "question": "If I delete a photo, is it gone forever?",
+          "answer": "No. Deleted photos are moved to the \"Recently Deleted\" album in your system Photos app. They will be kept there for 30 days before being permanently removed by iOS. You can recover them anytime within that period."
+        },
+        {
+          "question": "How do I restore my purchase?",
+          "answer": "Go to CleanPhoto Settings > Premium, and tap \"Restore Purchase\"."
+        }
+      ],
+      "support_email_subject": "CleanPhoto Support Request",
+      "support_email_body": "Device: iPhone\niOS Version:\nApp Version: 1.0\n\nPlease describe your issue here:",
+      "company_name": "Ververv",
+      "company_url": "Ververv.com"
+    }
   }
 ]

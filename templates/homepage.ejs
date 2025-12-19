@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= name %></title>
+    <meta name="description" content="<%= homepage.slogan %> <%= homepage.sub_slogan %>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: <%= homepage.theme_color || '#007AFF' %>;
+            --primary-dark: color-mix(in srgb, <%= homepage.theme_color || '#007AFF' %> 85%, black);
+            --primary-light: color-mix(in srgb, <%= homepage.theme_color || '#007AFF' %> 15%, white);
+            --gray-50: #FAFAFA;
+            --gray-100: #F5F5F7;
+            --gray-200: #E8E8ED;
+            --gray-400: #AEAEB2;
+            --gray-600: #6E6E73;
+            --gray-900: #1D1D1F;
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 20px;
+            --radius-xl: 28px;
+            --shadow-sm: 0 1px 2px rgba(0,0,0,0.04), 0 1px 3px rgba(0,0,0,0.08);
+            --shadow-md: 0 4px 6px rgba(0,0,0,0.04), 0 10px 24px rgba(0,0,0,0.08);
+            --shadow-lg: 0 8px 16px rgba(0,0,0,0.06), 0 24px 48px rgba(0,0,0,0.12);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif;
+            line-height: 1.6;
+            color: var(--gray-900);
+            background: #fff;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            text-align: center;
+            padding: 80px 24px 100px;
+            background: linear-gradient(180deg, #fff 0%, var(--gray-100) 100%);
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 50% 0%, var(--primary-light) 0%, transparent 50%);
+            opacity: 0.6;
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 680px;
+            margin: 0 auto;
+        }
+
+        .app-icon {
+            width: 140px;
+            height: 140px;
+            border-radius: 32%;
+            box-shadow: var(--shadow-lg);
+            margin-bottom: 32px;
+            background: #fff;
+        }
+
+        .app-name {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            letter-spacing: -0.03em;
+            background: linear-gradient(135deg, var(--gray-900) 0%, var(--gray-600) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .slogan {
+            font-size: 1.75rem;
+            font-weight: 600;
+            color: var(--gray-900);
+            margin-bottom: 16px;
+            letter-spacing: -0.02em;
+        }
+
+        .sub-slogan {
+            font-size: 1.125rem;
+            color: var(--gray-600);
+            margin-bottom: 40px;
+            line-height: 1.7;
+        }
+
+        .app-store-badge {
+            display: inline-block;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .app-store-badge:hover {
+            transform: translateY(-2px);
+        }
+
+        .app-store-badge img {
+            height: 56px;
+            border-radius: var(--radius-sm);
+        }
+
+        /* Features Section */
+        .features {
+            padding: 100px 24px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .features-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .features-header h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--gray-900);
+            margin-bottom: 16px;
+            letter-spacing: -0.02em;
+        }
+
+        .features-header p {
+            font-size: 1.125rem;
+            color: var(--gray-600);
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .feature-item {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 40px;
+            align-items: center;
+            margin-bottom: 80px;
+            padding: 40px;
+            background: var(--gray-50);
+            border-radius: var(--radius-xl);
+            border: 1px solid var(--gray-200);
+        }
+
+        .feature-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .feature-image {
+            order: 1;
+        }
+
+        .feature-image img {
+            width: 100%;
+            max-width: 420px;
+            height: auto;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            margin: 0 auto;
+            display: block;
+        }
+
+        .feature-content {
+            order: 2;
+            text-align: center;
+        }
+
+        .feature-badge {
+            display: inline-block;
+            padding: 6px 14px;
+            background: var(--primary-light);
+            color: var(--primary);
+            font-size: 0.8125rem;
+            font-weight: 600;
+            border-radius: 100px;
+            margin-bottom: 16px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .feature-content h3 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: var(--gray-900);
+            letter-spacing: -0.02em;
+        }
+
+        .feature-content p {
+            font-size: 1.0625rem;
+            color: var(--gray-600);
+            line-height: 1.7;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        @media (min-width: 768px) {
+            .feature-item {
+                grid-template-columns: 1fr 1fr;
+                gap: 60px;
+                padding: 60px;
+            }
+
+            .feature-image {
+                order: 0;
+            }
+
+            .feature-item.reverse .feature-image {
+                order: 2;
+            }
+
+            .feature-content {
+                order: 0;
+                text-align: left;
+            }
+
+            .feature-item.reverse .feature-content {
+                order: 1;
+            }
+
+            .feature-content p {
+                margin: 0;
+            }
+        }
+
+        /* Support Section */
+        .support {
+            background: linear-gradient(180deg, #fff 0%, var(--gray-100) 50%, var(--gray-100) 100%);
+            padding: 100px 24px;
+        }
+
+        .support-container {
+            max-width: 720px;
+            margin: 0 auto;
+        }
+
+        .support-header {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .support-header h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            letter-spacing: -0.02em;
+        }
+
+        .support-header p {
+            color: var(--gray-600);
+            font-size: 1.0625rem;
+        }
+
+        .faq-list {
+            margin-bottom: 48px;
+        }
+
+        .faq-item {
+            background: #fff;
+            border-radius: var(--radius-md);
+            margin-bottom: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--gray-200);
+            transition: box-shadow 0.2s;
+        }
+
+        .faq-item:hover {
+            box-shadow: var(--shadow-md);
+        }
+
+        .faq-item summary {
+            padding: 20px 24px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            transition: background 0.2s;
+        }
+
+        .faq-item summary:hover {
+            background: var(--gray-50);
+        }
+
+        .faq-item summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .faq-item summary::after {
+            content: '';
+            width: 24px;
+            height: 24px;
+            flex-shrink: 0;
+            background: var(--gray-100);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M6 2v8M2 6h8' stroke='%236E6E73' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: center;
+            transition: transform 0.2s;
+        }
+
+        .faq-item[open] summary::after {
+            transform: rotate(45deg);
+        }
+
+        .faq-item .faq-answer {
+            padding: 0 24px 20px;
+            color: var(--gray-600);
+            line-height: 1.7;
+            font-size: 0.9375rem;
+        }
+
+        .contact-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            max-width: 280px;
+            margin: 0 auto;
+            padding: 16px 32px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: #fff;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: var(--radius-md);
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 14px color-mix(in srgb, var(--primary) 40%, transparent);
+        }
+
+        .contact-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px color-mix(in srgb, var(--primary) 50%, transparent);
+        }
+
+        .contact-btn svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        /* Footer */
+        .footer {
+            padding: 48px 24px;
+            text-align: center;
+            background: #fff;
+            border-top: 1px solid var(--gray-200);
+        }
+
+        .footer-logo {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--gray-900);
+            margin-bottom: 16px;
+        }
+
+        .footer p {
+            color: var(--gray-400);
+            font-size: 0.875rem;
+            margin-bottom: 16px;
+        }
+
+        .footer nav {
+            font-size: 0.875rem;
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+
+        .footer nav a {
+            color: var(--gray-600);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer nav a:hover {
+            color: var(--primary);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <img class="app-icon" src="../assets/<%= homepage.app_icon %>" alt="<%= name %> Icon">
+            <h1 class="app-name"><%= name %></h1>
+            <p class="slogan"><%= homepage.slogan %></p>
+            <p class="sub-slogan"><%= homepage.sub_slogan %></p>
+            <a href="<%= homepage.app_store_url %>" class="app-store-badge">
+                <img src="../assets/common/app-store-badge.svg" alt="Download on the App Store">
+            </a>
+        </div>
+    </section>
+
+    <!-- Key Features -->
+    <section class="features">
+        <div class="features-header">
+            <h2>Why Choose <%= name %>?</h2>
+            <p>Powerful features designed to make your life easier</p>
+        </div>
+
+        <% homepage.features.forEach((feature, index) => { %>
+        <div class="feature-item<%= index % 2 === 1 ? ' reverse' : '' %>">
+            <div class="feature-image">
+                <img src="../assets/<%= feature.image %>" alt="<%= feature.title %>">
+            </div>
+            <div class="feature-content">
+                <span class="feature-badge">Feature <%= index + 1 %></span>
+                <h3><%= feature.title %></h3>
+                <p><%= feature.description %></p>
+            </div>
+        </div>
+        <% }); %>
+    </section>
+
+    <!-- Support Center -->
+    <section id="support" class="support">
+        <div class="support-container">
+            <div class="support-header">
+                <h2>Support & FAQ</h2>
+                <p>Find answers to common questions</p>
+            </div>
+
+            <div class="faq-list">
+                <% homepage.faqs.forEach(faq => { %>
+                <details class="faq-item">
+                    <summary><%= faq.question %></summary>
+                    <div class="faq-answer"><%= faq.answer %></div>
+                </details>
+                <% }); %>
+            </div>
+
+            <a href="mailto:<%= email %>?subject=<%= encodeURIComponent(homepage.support_email_subject || name + ' Support Request') %>&body=<%= encodeURIComponent(homepage.support_email_body || '') %>" class="contact-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                    <polyline points="22,6 12,13 2,6"/>
+                </svg>
+                Contact Support
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-logo"><%= homepage.company_name || 'Ververv' %></div>
+        <p>&copy; <%= new Date().getFullYear() %> <%= homepage.company_url || 'Ververv.com' %>. All rights reserved.</p>
+        <nav>
+            <a href="/<%= key %>/privacy.html">Privacy Policy</a>
+            <% if (pages.includes('terms')) { %>
+            <a href="/<%= key %>/terms.html">Terms of Use</a>
+            <% } %>
+        </nav>
+    </footer>
+
+</body>
+</html>

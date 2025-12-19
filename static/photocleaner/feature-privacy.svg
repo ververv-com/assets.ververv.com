@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" width="400" height="300">
+  <rect width="400" height="300" rx="16" fill="#F5F5F7"/>
+  <rect x="140" y="40" width="120" height="160" rx="20" fill="#1D1D1F"/>
+  <rect x="145" y="50" width="110" height="140" rx="16" fill="#fff"/>
+  <circle cx="200" cy="120" r="30" fill="#34C759" opacity="0.2"/>
+  <path d="M200 100 L200 95 Q200 80 185 80 L185 75 Q185 60 200 60 Q215 60 215 75 L215 80 Q200 80 200 95 L200 100" fill="none" stroke="#34C759" stroke-width="4" stroke-linecap="round"/>
+  <rect x="180" y="100" width="40" height="30" rx="4" fill="#34C759"/>
+  <circle cx="200" cy="112" r="4" fill="#fff"/>
+  <path d="M200 116 L200 124" stroke="#fff" stroke-width="3" stroke-linecap="round"/>
+  <path d="M100 80 L140 100" stroke="#E5E5EA" stroke-width="2" stroke-dasharray="4 4"/>
+  <path d="M260 100 L300 80" stroke="#E5E5EA" stroke-width="2" stroke-dasharray="4 4"/>
+  <circle cx="85" cy="70" r="20" fill="#E5E5EA"/>
+  <path d="M80 70 L90 70 M85 65 L85 75" stroke="#FF3B30" stroke-width="2" stroke-linecap="round" opacity="0.5"/>
+  <circle cx="315" cy="70" r="20" fill="#E5E5EA"/>
+  <path d="M310 70 L320 70 M315 65 L315 75" stroke="#FF3B30" stroke-width="2" stroke-linecap="round" opacity="0.5"/>
+  <text x="200" y="230" text-anchor="middle" fill="#1D1D1F" font-family="-apple-system, sans-serif" font-size="16" font-weight="600">Privacy First</text>
+  <text x="200" y="255" text-anchor="middle" fill="#6E6E73" font-family="-apple-system, sans-serif" font-size="12">100% on-device processing</text>
+</svg>

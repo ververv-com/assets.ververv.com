@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" width="400" height="300">
+  <rect width="400" height="300" rx="16" fill="#F5F5F7"/>
+  <rect x="30" y="50" width="100" height="80" rx="8" fill="#FF9500" opacity="0.3"/>
+  <rect x="150" y="50" width="100" height="80" rx="8" fill="#5856D6" opacity="0.3"/>
+  <rect x="270" y="50" width="100" height="80" rx="8" fill="#34C759" opacity="0.3"/>
+  <circle cx="80" cy="80" r="15" fill="#FF9500"/>
+  <circle cx="200" cy="80" r="15" fill="#5856D6"/>
+  <circle cx="320" cy="80" r="15" fill="#34C759"/>
+  <text x="80" y="115" text-anchor="middle" fill="#1D1D1F" font-family="-apple-system, sans-serif" font-size="10">People</text>
+  <text x="200" y="115" text-anchor="middle" fill="#1D1D1F" font-family="-apple-system, sans-serif" font-size="10">Pets</text>
+  <text x="320" y="115" text-anchor="middle" fill="#1D1D1F" font-family="-apple-system, sans-serif" font-size="10">Scenes</text>
+  <path d="M70 75 Q80 65 90 75" fill="none" stroke="#fff" stroke-width="2"/>
+  <circle cx="75" cy="72" r="2" fill="#fff"/>
+  <circle cx="85" cy="72" r="2" fill="#fff"/>
+  <text x="200" y="200" text-anchor="middle" fill="#1D1D1F" font-family="-apple-system, sans-serif" font-size="16" font-weight="600">AI Album</text>
+  <text x="200" y="225" text-anchor="middle" fill="#6E6E73" font-family="-apple-system, sans-serif" font-size="12">Auto-organize by content</text>
+</svg>

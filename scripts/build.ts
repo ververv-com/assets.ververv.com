@@ -8,6 +8,31 @@ interface ThirdPartyService {
     url?: string;
 }
 
+interface Feature {
+    title: string;
+    description: string;
+    image: string;
+}
+
+interface FAQ {
+    question: string;
+    answer: string;
+}
+
+interface HomepageConfig {
+    slogan: string;
+    sub_slogan: string;
+    app_icon: string;
+    app_store_url: string;
+    features: Feature[];
+    faqs: FAQ[];
+    support_email_subject?: string;
+    support_email_body?: string;
+    theme_color?: string;
+    company_name?: string;
+    company_url?: string;
+}
+
 interface AppConfig {
     key: string;
     name: string;
@@ -16,6 +41,7 @@ interface AppConfig {
     has_iap: boolean;
     third_party_services: ThirdPartyService[];
     pages: string[];
+    homepage?: HomepageConfig;
 }
 
 // 路径配置
@@ -30,7 +56,8 @@ const PATHS = {
 // 支持的页面类型
 const PAGE_TEMPLATES: Record<string, string> = {
     privacy: 'privacy.ejs',
-    terms: 'terms.ejs'
+    terms: 'terms.ejs',
+    homepage: 'homepage.ejs'
 };
 
 async function build() {
@@ -74,8 +101,10 @@ async function build() {
 
                 const template = await fs.readFile(templatePath, 'utf-8');
                 const html = ejs.render(template, app);
-                await fs.writeFile(path.join(appDir, `${pageType}.html`), html);
-                console.log(`   ✓ ${pageType}.html`);
+                // homepage 输出为 index.html，其他页面按原名输出
+                const outputFileName = pageType === 'homepage' ? 'index.html' : `${pageType}.html`;
+                await fs.writeFile(path.join(appDir, outputFileName), html);
+                console.log(`   ✓ ${outputFileName}`);
             }
 
             // 生成 config.json
