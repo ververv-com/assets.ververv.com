@@ -1,7 +1,7 @@
 [
   {
     "key": "photocleaner",
-    "name": "CleanPhoto",
+    "name": "SwipeClean",
     "email": "support@ververv.com",
     "updated_date": "December 13, 2025",
     "has_iap": true,
@@ -37,12 +37,12 @@
       ],
       "faqs": [
         {
-          "question": "Is CleanPhoto free to use?",
+          "question": "Is SwipeClean free to use?",
           "answer": "We offer a 3-day free trial with full access to all features. After the trial, it is a paid subscription. You can cancel anytime in your Apple ID settings."
         },
         {
           "question": "Are my photos safe?",
-          "answer": "Yes, absolutely. CleanPhoto processes all your photos locally on your iPhone. We do not upload your photos to any server. Your privacy is our priority."
+          "answer": "Yes, absolutely. SwipeClean processes all your photos locally on your iPhone. We do not upload your photos to any server. Your privacy is our priority."
         },
         {
           "question": "If I delete a photo, is it gone forever?",
@@ -50,10 +50,10 @@
         },
         {
           "question": "How do I restore my purchase?",
-          "answer": "Go to CleanPhoto Settings > Premium, and tap \"Restore Purchase\"."
+          "answer": "Go to SwipeClean Settings > Premium, and tap \"Restore Purchase\"."
         }
       ],
-      "support_email_subject": "CleanPhoto Support Request",
+      "support_email_subject": "SwipeClean Support Request",
       "support_email_body": "Device: iPhone\niOS Version:\nApp Version: 1.0\n\nPlease describe your issue here:",
       "company_name": "Ververv",
       "company_url": "Ververv.com"
