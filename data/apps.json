@@ -11,7 +11,7 @@
         "url": "https://onesignal.com/privacy_policy"
       }
     ],
-    "pages": ["homepage", "privacy"],
+    "pages": ["homepage", "privacy", "terms"],
     "homepage": {
       "slogan": "Don't waste time cleaning photos.",
       "sub_slogan": "AI-Powered Storage Cleaner. 100% Privacy. Zero Ads.",

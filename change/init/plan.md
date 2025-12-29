@@ -17,12 +17,12 @@
 
 采用目录结构法实现无后缀的 Clean URLs：
 
-| 页面类型 | 输出路径 | 访问 URL |
-|----------|----------|----------|
-| homepage | `/{key}/home/index.html` | `/{key}/home/` |
-| privacy | `/{key}/privacy/index.html` | `/{key}/privacy/` |
-| terms | `/{key}/terms/index.html` | `/{key}/terms/` |
-| 根目录 | `/{key}/index.html` | `/{key}/` (重定向) |
+| 页面类型 | 输出路径 | 访问 URL | 说明 |
+|----------|----------|----------|------|
+| homepage | `/{key}/home/index.html` | `/{key}/home/` | Landing Page |
+| privacy | `/{key}/privacy/index.html` | `/{key}/privacy/` | 隐私协议 |
+| terms | `/{key}/terms/index.html` | `/{key}/terms/` | 服务条款 |
+| 根目录 | `/{key}/index.html` | `/{key}/` (重定向) | 跳转到 home/ |
 
 ---
 
@@ -34,6 +34,7 @@
 │   └── apps.json           # App 配置（含第三方服务）
 ├── /templates
 │   ├── privacy.ejs         # 隐私协议模版
+│   ├── terms.ejs           # 服务条款模版
 │   ├── homepage.ejs        # Landing Page 模版
 │   └── index.ejs           # 站点首页模版
 ├── /static
@@ -50,6 +51,8 @@
 │       │   └── index.html  # Landing Page
 │       ├── /privacy
 │       │   └── index.html  # 隐私协议
+│       ├── /terms
+│       │   └── index.html  # 服务条款
 │       └── config.json     # App 配置
 ├── package.json
 ├── tsconfig.json
@@ -76,7 +79,7 @@
         "url": "https://onesignal.com/privacy_policy"
       }
     ],
-    "pages": ["homepage", "privacy"],
+    "pages": ["homepage", "privacy", "terms"],
     "homepage": {
       "slogan": "...",
       "features": [...],
@@ -137,4 +140,5 @@ const outputPath = path.join(appDir, outputDir, 'index.html');
 | CleanPhoto 首页 | `https://s.ververv.com/photocleaner/home/` |
 | CleanPhoto Support | `https://s.ververv.com/photocleaner/home/#support` |
 | CleanPhoto 隐私协议 | `https://s.ververv.com/photocleaner/privacy/` |
+| CleanPhoto 服务条款 | `https://s.ververv.com/photocleaner/terms/` |
 | CleanPhoto 配置 | `https://s.ververv.com/photocleaner/config.json` |
