@@ -2,7 +2,7 @@
   {
     "key": "photocleaner",
     "name": "SwipeClean",
-    "email": "support@ververv.com",
+    "email": "support@photocleaner.ververv.com",
     "updated_date": "December 13, 2025",
     "has_iap": true,
     "third_party_services": [
@@ -13,36 +13,103 @@
     ],
     "pages": ["homepage", "privacy", "terms"],
     "homepage": {
-      "slogan": "Don't waste time cleaning photos.",
-      "sub_slogan": "AI-Powered Storage Cleaner. 100% Privacy. Zero Ads.",
+      "slogan": "Swipe left to delete. Swipe right to keep.",
+      "sub_slogan": "AI-powered. Ad-free. 99%+ accuracy.",
       "app_icon": "photocleaner/icon.svg",
       "app_store_url": "#",
       "theme_color": "#007AFF",
       "features": [
         {
-          "title": "Smart Cleanup",
-          "description": "Find duplicates and similar photos with >99% accuracy.",
+          "title": "99%+ Accurate",
+          "description": "Detect exact duplicates, not just \"similar\" photos. See match percentage.",
           "image": "photocleaner/feature-cleanup.svg"
         },
         {
-          "title": "AI Album",
-          "description": "Automatically organize photos by People, Pets, and Scenes.",
+          "title": "Auto-Save Progress",
+          "description": "Clean 10,000+ photos without losing progress. Pick up anytime.",
+          "image": "photocleaner/feature-progress.svg"
+        },
+        {
+          "title": "AI Albums",
+          "description": "Photos sorted into People, Pets, Couples, Scenes automatically.",
           "image": "photocleaner/feature-ai-album.svg"
         },
         {
+          "title": "Zero Ads. Ever.",
+          "description": "No banners. No pop-ups. No interruptions.",
+          "image": "photocleaner/feature-no-ads.svg"
+        },
+        {
           "title": "Privacy First",
-          "description": "All processing happens locally on your device. No cloud uploads.",
+          "description": "All processing happens on-device. We can't see your photos.",
           "image": "photocleaner/feature-privacy.svg"
+        }
+      ],
+      "steps": [
+        {
+          "icon": "👈",
+          "title": "Swipe Left",
+          "description": "Delete"
+        },
+        {
+          "icon": "👉",
+          "title": "Swipe Right",
+          "description": "Keep"
+        },
+        {
+          "icon": "↩️",
+          "title": "Tap to Undo",
+          "description": "Made a mistake? No problem."
+        },
+        {
+          "icon": "✅",
+          "title": "Review & Delete",
+          "description": "Confirm and clean up."
+        }
+      ],
+      "cleanup_tools": [
+        {
+          "icon": "📋",
+          "title": "Duplicates",
+          "description": "Exact copies, 100% match"
+        },
+        {
+          "icon": "🖼️",
+          "title": "Similar Photos",
+          "description": "AI picks the sharpest one"
+        },
+        {
+          "icon": "📱",
+          "title": "Screenshots",
+          "description": "Bulk organize and delete"
+        },
+        {
+          "icon": "🎬",
+          "title": "Videos",
+          "description": "Sort by size, find the big ones"
+        },
+        {
+          "icon": "⚡",
+          "title": "Live Photos",
+          "description": "Convert to stills, save space"
         }
       ],
       "faqs": [
         {
           "question": "Is SwipeClean free to use?",
-          "answer": "We offer a 3-day free trial with full access to all features. After the trial, it is a paid subscription. You can cancel anytime in your Apple ID settings."
+          "answer": "We offer a 3-day free trial with full access to all features. After the trial, it is $9.99/week (auto-renewable). We'll remind you before your trial ends — no surprise charges. Cancel anytime in Settings → Subscriptions."
+        },
+        {
+          "question": "What's included in the free trial?",
+          "answer": "Full access to all features for 3 days: duplicate detection, similar photos cleanup, AI albums, and all cleanup tools. No limitations."
         },
         {
           "question": "Are my photos safe?",
-          "answer": "Yes, absolutely. SwipeClean processes all your photos locally on your iPhone. We do not upload your photos to any server. Your privacy is our priority."
+          "answer": "Yes, absolutely. Your photos never leave your device. Everything runs offline. We can't see your photos — and we don't want to."
+        },
+        {
+          "question": "What are AI Albums?",
+          "answer": "Your photos automatically sorted into smart categories: People, Couples, Pets, and Scenes (beach, city, food, travel). Find any photo without scrolling forever."
         },
         {
           "question": "If I delete a photo, is it gone forever?",

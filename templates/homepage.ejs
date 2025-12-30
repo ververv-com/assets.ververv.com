@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= name %> - <%= homepage.slogan %></title>
     <meta name="description" content="<%= homepage.sub_slogan %>">
-    
+
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -19,26 +19,26 @@
                 var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex || '#007AFF');
                 return result ? parseInt(result[1], 16) + ", " + parseInt(result[2], 16) + ", " + parseInt(result[3], 16) : "0, 122, 255";
             })(homepage.theme_color) %>;
-            
+
             --bg-color: #ffffff;
             --bg-secondary: #f5f5f7;
-            
+
             /* Alternating backgrounds for better contrast */
             --bg-hero: radial-gradient(circle at 50% 0%, rgba(var(--primary-rgb), 0.12) 0%, transparent 70%), #f5f5f7;
             --bg-features: #ffffff;
             --bg-support: #f5f5f7;
             --bg-footer: #1d1d1f;
-            
+
             --text-primary: #1d1d1f;
             --text-secondary: #86868b;
             --text-footer: #86868b;
             --text-footer-hover: #ffffff;
             --border-color: #d2d2d7;
-            
+
             --radius-large: 28px;
             --radius-medium: 16px;
             --max-width: 1080px;
-            
+
             --shadow-sm: 0 2px 8px rgba(0,0,0,0.04);
             --shadow-md: 0 12px 24px rgba(0,0,0,0.08);
             --shadow-lg: 0 24px 48px rgba(0,0,0,0.12);
@@ -137,7 +137,7 @@
             align-items: center;
             gap: 10px;
         }
-        
+
         .nav-title img {
             width: 28px;
             height: 28px;
@@ -153,7 +153,7 @@
             font-weight: 600;
             transition: transform 0.2s, opacity 0.2s;
         }
-        
+
         .nav-download:hover {
             transform: scale(1.02);
             opacity: 0.9;
@@ -208,7 +208,7 @@
             z-index: 2;
             background: white;
         }
-        
+
         .app-icon-glow {
             position: absolute;
             top: 50%;
@@ -249,10 +249,65 @@
             transition: transform 0.2s, box-shadow 0.2s;
             border-radius: 10px;
         }
-        
+
         .app-store-badge:hover {
             transform: translateY(-2px);
             box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        /* How It Works */
+        .how-it-works {
+            padding: 80px 0;
+            background: var(--bg-features);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .step-item {
+            text-align: center;
+            position: relative;
+        }
+
+        .step-item:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            top: 32px;
+            right: -12px;
+            width: 24px;
+            height: 2px;
+            background: linear-gradient(90deg, var(--border-color), transparent);
+        }
+
+        .step-icon {
+            width: 64px;
+            height: 64px;
+            background: var(--bg-secondary);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            margin: 0 auto 16px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .step-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .step-desc {
+            font-size: 14px;
+            color: var(--text-secondary);
         }
 
         /* Features */
@@ -268,7 +323,7 @@
             margin-bottom: 120px;
             gap: 80px;
         }
-        
+
         .feature-item:last-child {
             margin-bottom: 0;
         }
@@ -288,7 +343,7 @@
             justify-content: center;
             position: relative;
         }
-        
+
         .feature-image-container::before {
             content: '';
             position: absolute;
@@ -334,10 +389,58 @@
             color: var(--text-secondary);
         }
 
+        /* Cleanup Tools */
+        .cleanup-tools {
+            padding: 100px 0;
+            background: var(--bg-secondary);
+            border-top: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 20px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .tool-item {
+            text-align: center;
+            padding: 28px 16px;
+            background: white;
+            border-radius: var(--radius-medium);
+            box-shadow: var(--shadow-sm);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .tool-item:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .tool-icon {
+            font-size: 32px;
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .tool-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .tool-desc {
+            font-size: 12px;
+            color: var(--text-secondary);
+            line-height: 1.4;
+        }
+
         /* Support / FAQ */
         .support {
             padding: 120px 0;
-            background: var(--bg-support);
+            background: var(--bg-features);
             border-top: 1px solid rgba(0,0,0,0.05);
         }
 
@@ -351,7 +454,7 @@
             font-weight: 700;
             margin-bottom: 16px;
         }
-        
+
         .section-subtitle {
             font-size: 20px;
             color: var(--text-secondary);
@@ -364,15 +467,15 @@
             max-width: 960px;
             margin: 0 auto;
         }
-        
+
         .faq-item {
-            background: #fff;
+            background: var(--bg-secondary);
             padding: 32px;
             border-radius: var(--radius-medium);
             box-shadow: var(--shadow-sm);
             transition: transform 0.2s, box-shadow 0.2s;
         }
-        
+
         .faq-item:hover {
             transform: translateY(-2px);
             box-shadow: var(--shadow-md);
@@ -390,12 +493,12 @@
             color: var(--text-secondary);
             line-height: 1.6;
         }
-        
+
         .contact-support {
             text-align: center;
             margin-top: 80px;
         }
-        
+
         .contact-btn {
             display: inline-flex;
             align-items: center;
@@ -409,7 +512,7 @@
             font-size: 16px;
             transition: all 0.2s;
         }
-        
+
         .contact-btn:hover {
             background: var(--bg-secondary);
             border-color: var(--text-secondary);
@@ -428,7 +531,7 @@
             justify-content: space-between;
             align-items: center;
         }
-        
+
         .footer-left {
             display: flex;
             flex-direction: column;
@@ -449,7 +552,7 @@
             height: 24px;
             border-radius: 6px;
         }
-        
+
         .copyright {
             font-size: 12px;
             color: var(--text-footer);
@@ -467,7 +570,7 @@
             font-weight: 500;
             transition: color 0.2s;
         }
-        
+
         .footer-links a:hover {
             color: var(--text-footer-hover);
         }
@@ -477,34 +580,56 @@
             .hero { padding: 100px 0 60px; }
             .hero-title { font-size: 40px; }
             .hero-subtitle { font-size: 20px; }
-            
+
+            .steps-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 32px;
+            }
+
+            .step-item:not(:last-child)::after {
+                display: none;
+            }
+
+            .tools-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 16px;
+            }
+
             .feature-item {
                 flex-direction: column;
                 text-align: center;
                 gap: 48px;
                 margin-bottom: 80px;
             }
-            
+
             .feature-item:nth-child(even) {
                 flex-direction: column;
             }
-            
+
             .feature-content { max-width: 100%; }
-            
+
+            .faq-grid {
+                grid-template-columns: 1fr;
+            }
+
             .footer-content {
                 flex-direction: column-reverse;
                 gap: 24px;
                 text-align: center;
             }
-            
+
             .footer-left {
                 align-items: center;
             }
-            
+
             .footer-links {
                 flex-direction: column;
                 align-items: center;
                 gap: 16px;
+            }
+
+            .section-title {
+                font-size: 32px;
             }
         }
     </style>
@@ -532,10 +657,10 @@
                 <div class="app-icon-glow"></div>
                 <img src="../../assets/<%= homepage.app_icon %>" alt="<%= name %> Icon" class="app-icon">
             </div>
-            
+
             <h1 class="hero-title animate-fade-up delay-100"><%= homepage.slogan %></h1>
             <p class="hero-subtitle animate-fade-up delay-200"><%= homepage.sub_slogan %></p>
-            
+
             <div class="animate-fade-up delay-300">
                 <a href="<%= homepage.app_store_url %>" target="_blank" style="display: inline-block;">
                     <img src="../../assets/common/app-store-badge.svg" alt="Download on the App Store" class="app-store-badge">
@@ -543,6 +668,28 @@
             </div>
         </div>
     </section>
+
+    <% if (homepage.steps && homepage.steps.length > 0) { %>
+    <!-- How It Works -->
+    <section class="how-it-works">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">How It Works</h2>
+                <p class="section-subtitle">Simple, fast, and satisfying.</p>
+            </div>
+
+            <div class="steps-grid">
+                <% homepage.steps.forEach(function(step) { %>
+                <div class="step-item">
+                    <div class="step-icon"><%= step.icon %></div>
+                    <div class="step-title"><%= step.title %></div>
+                    <div class="step-desc"><%= step.description %></div>
+                </div>
+                <% }); %>
+            </div>
+        </div>
+    </section>
+    <% } %>
 
     <!-- Features -->
     <section class="features">
@@ -562,6 +709,28 @@
         </div>
     </section>
 
+    <% if (homepage.cleanup_tools && homepage.cleanup_tools.length > 0) { %>
+    <!-- Cleanup Tools -->
+    <section class="cleanup-tools">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Cleanup Tools</h2>
+                <p class="section-subtitle">Everything you need to reclaim your storage.</p>
+            </div>
+
+            <div class="tools-grid">
+                <% homepage.cleanup_tools.forEach(function(tool) { %>
+                <div class="tool-item">
+                    <span class="tool-icon"><%= tool.icon %></span>
+                    <div class="tool-title"><%= tool.title %></div>
+                    <div class="tool-desc"><%= tool.description %></div>
+                </div>
+                <% }); %>
+            </div>
+        </div>
+    </section>
+    <% } %>
+
     <!-- Support / FAQ -->
     <section id="support" class="support">
         <div class="container">
@@ -569,7 +738,7 @@
                 <h2 class="section-title">Frequently Asked Questions</h2>
                 <p class="section-subtitle">Everything you need to know about the app.</p>
             </div>
-            
+
             <div class="faq-grid">
                 <% homepage.faqs.forEach(function(faq) { %>
                 <div class="faq-item">
@@ -599,7 +768,7 @@
                     &copy; <%= new Date().getFullYear() %> <%= homepage.company_name || name %>. All rights reserved.
                 </div>
             </div>
-            
+
             <div class="footer-links">
                 <a href="../privacy/">Privacy Policy</a>
                 <% if (pages.includes('terms')) { %>
