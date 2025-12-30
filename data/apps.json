@@ -94,6 +94,13 @@
           "description": "Convert to stills, save space"
         }
       ],
+      "screenshots": [
+        "https://assets.ververv.com/swipeclean/screenshot-01.png",
+        "https://assets.ververv.com/swipeclean/screenshot-02.png",
+        "https://assets.ververv.com/swipeclean/screenshot-03.png",
+        "https://assets.ververv.com/swipeclean/screenshot-04.png",
+        "https://assets.ververv.com/swipeclean/screenshot-05.png"
+      ],
       "faqs": [
         {
           "question": "Is SwipeClean free to use?",

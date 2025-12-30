@@ -255,6 +255,67 @@
             box-shadow: 0 10px 20px rgba(0,0,0,0.1);
         }
 
+        /* App Preview / Screenshots */
+        .app-preview {
+            padding: 80px 0;
+            background: var(--bg-features);
+            overflow: hidden;
+        }
+
+        .screenshots-wrapper {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .screenshots-wrapper::-webkit-scrollbar {
+            display: none;
+        }
+
+        .screenshots-scroll {
+            display: flex;
+            gap: 20px;
+            padding: 20px 0;
+            width: fit-content;
+            margin: 0 auto;
+        }
+
+        .screenshot-item {
+            flex: 0 0 auto;
+            width: 280px;
+            border-radius: var(--radius-large);
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background: white;
+        }
+
+        .screenshot-item:hover {
+            transform: scale(1.02);
+            box-shadow: var(--shadow-lg), 0 0 40px rgba(var(--primary-rgb), 0.15);
+        }
+
+        .screenshot-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .scroll-hint {
+            text-align: center;
+            margin-top: 24px;
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        .scroll-hint span {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
         /* How It Works */
         .how-it-works {
             padding: 80px 0;
@@ -668,6 +729,32 @@
             </div>
         </div>
     </section>
+
+    <% if (homepage.screenshots && homepage.screenshots.length > 0) { %>
+    <!-- App Preview -->
+    <section class="app-preview">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">See It In Action</h2>
+                <p class="section-subtitle">Swipe through app screens.</p>
+            </div>
+        </div>
+
+        <div class="screenshots-wrapper">
+            <div class="screenshots-scroll">
+                <% homepage.screenshots.forEach(function(screenshot, index) { %>
+                <div class="screenshot-item">
+                    <img src="<%= screenshot %>" alt="App Screenshot <%= index + 1 %>" loading="lazy">
+                </div>
+                <% }); %>
+            </div>
+        </div>
+
+        <div class="scroll-hint">
+            <span>← Swipe to explore →</span>
+        </div>
+    </section>
+    <% } %>
 
     <% if (homepage.steps && homepage.steps.length > 0) { %>
     <!-- How It Works -->
