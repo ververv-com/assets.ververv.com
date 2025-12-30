@@ -9,40 +9,37 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
     <style>
         :root {
-            /* Convert hex to rgb for opacity manipulation */
-            --primary-color: <%= homepage.theme_color || '#007AFF' %>;
+            --primary: <%= homepage.theme_color || '#007AFF' %>;
             --primary-rgb: <%= (function(hex) {
                 var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex || '#007AFF');
                 return result ? parseInt(result[1], 16) + ", " + parseInt(result[2], 16) + ", " + parseInt(result[3], 16) : "0, 122, 255";
             })(homepage.theme_color) %>;
 
-            --bg-color: #ffffff;
-            --bg-secondary: #f5f5f7;
+            --bg-body: #ffffff;
+            --bg-surface: #f8f9fa;
+            --bg-surface-hover: #f1f3f5;
+            
+            --text-main: #111827;
+            --text-muted: #6b7280;
+            --text-light: #ffffff;
 
-            /* Alternating backgrounds for better contrast */
-            --bg-hero: radial-gradient(circle at 50% 0%, rgba(var(--primary-rgb), 0.12) 0%, transparent 70%), #f5f5f7;
-            --bg-features: #ffffff;
-            --bg-support: #f5f5f7;
-            --bg-footer: #1d1d1f;
+            --radius-xl: 32px;
+            --radius-lg: 24px;
+            --radius-md: 16px;
+            --radius-sm: 12px;
 
-            --text-primary: #1d1d1f;
-            --text-secondary: #86868b;
-            --text-footer: #86868b;
-            --text-footer-hover: #ffffff;
-            --border-color: #d2d2d7;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            --shadow-glow: 0 0 120px rgba(var(--primary-rgb), 0.3);
 
-            --radius-large: 28px;
-            --radius-medium: 16px;
-            --max-width: 1080px;
-
-            --shadow-sm: 0 2px 8px rgba(0,0,0,0.04);
-            --shadow-md: 0 12px 24px rgba(0,0,0,0.08);
-            --shadow-lg: 0 24px 48px rgba(0,0,0,0.12);
-            --shadow-glow: 0 0 80px rgba(var(--primary-rgb), 0.15);
+            --container-width: 1200px;
+            --nav-height: 72px;
         }
 
         * {
@@ -53,53 +50,49 @@
         }
 
         body {
-            font-family: "SF Pro Display", "Inter", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-primary);
-            line-height: 1.5;
-            font-weight: 400;
-            letter-spacing: -0.01em;
+            font-family: "Plus Jakarta Sans", "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.6;
             overflow-x: hidden;
         }
 
-        /* Animations */
-        @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        /* Noise Texture */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 9999;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        .animate-fade-up {
-            opacity: 0;
-            animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-
-        .delay-100 { animation-delay: 0.1s; }
-        .delay-200 { animation-delay: 0.2s; }
-        .delay-300 { animation-delay: 0.3s; }
-
-        /* Typography */
-        h1, h2, h3 {
-            font-weight: 700;
-            letter-spacing: -0.02em;
-            color: var(--text-primary);
-        }
-
-        a {
-            text-decoration: none;
-            color: var(--primary-color);
-            transition: all 0.2s ease;
-        }
-
-        /* Layout */
+        /* Utilities */
         .container {
-            max-width: var(--max-width);
+            max-width: var(--container-width);
             margin: 0 auto;
             padding: 0 24px;
+        }
+
+        .text-center { text-align: center; }
+        
+        .section-padding {
+            padding: 140px 0;
+        }
+
+        /* Animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         /* Navbar */
@@ -108,709 +101,601 @@
             top: 0;
             left: 0;
             right: 0;
-            z-index: 1000;
+            height: var(--nav-height);
             background: rgba(255, 255, 255, 0.7);
             backdrop-filter: saturate(180%) blur(20px);
             -webkit-backdrop-filter: saturate(180%) blur(20px);
-            border-bottom: 1px solid rgba(0,0,0,0.05);
-            height: 64px;
-            display: flex;
-            align-items: center;
-            transition: background 0.3s;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(0,0,0,0.03);
+            transition: all 0.3s ease;
         }
 
-        .navbar-content {
+        .navbar.scrolled {
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .nav-inner {
             display: flex;
+            align-items: center;
             justify-content: space-between;
-            align-items: center;
-            width: 100%;
-            max-width: var(--max-width);
-            margin: 0 auto;
-            padding: 0 24px;
+            height: 100%;
         }
 
-        .nav-title {
-            font-size: 18px;
-            font-weight: 700;
-            color: var(--text-primary);
+        .nav-brand {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
+            font-weight: 800;
+            font-size: 20px;
+            color: var(--text-main);
+            text-decoration: none;
+            letter-spacing: -0.02em;
         }
 
-        .nav-title img {
-            width: 28px;
-            height: 28px;
-            border-radius: 6px;
+        .nav-brand img {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            box-shadow: var(--shadow-sm);
         }
 
-        .nav-download {
-            background: var(--text-primary);
-            color: white;
-            padding: 8px 20px;
-            border-radius: 100px;
-            font-size: 14px;
-            font-weight: 600;
-            transition: transform 0.2s, opacity 0.2s;
-        }
-
-        .nav-download:hover {
-            transform: scale(1.02);
-            opacity: 0.9;
-            color: white;
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 32px;
         }
 
         .nav-link {
-            font-size: 14px;
-            font-weight: 500;
-            color: var(--text-secondary);
-            margin-right: 24px;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 600;
             transition: color 0.2s;
         }
 
-        .nav-link:hover {
-            color: var(--text-primary);
+        .nav-link:hover { color: var(--text-main); }
+
+        .btn-primary {
+            background: var(--text-main);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 100px;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 600;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
 
-        .nav-right {
-            display: flex;
-            align-items: center;
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
         }
 
-        /* Hero */
+        /* Hero Section */
         .hero {
-            padding: 120px 0 60px;
-            text-align: center;
+            padding-top: calc(var(--nav-height) + 100px);
+            padding-bottom: 120px;
             position: relative;
             overflow: hidden;
-            background: var(--bg-hero);
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: -30%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120vw;
+            height: 120vh;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(var(--primary-rgb), 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 40%, rgba(var(--primary-rgb), 0.1) 0%, transparent 50%);
+            z-index: -1;
+            pointer-events: none;
+            filter: blur(60px);
         }
 
         .hero-content {
-            position: relative;
-            z-index: 1;
-            max-width: 800px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            max-width: 860px;
             margin: 0 auto;
         }
 
-        .app-icon-wrapper {
-            margin-bottom: 40px;
-            display: inline-block;
+        .hero-icon-wrapper {
             position: relative;
+            margin-bottom: 48px;
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        .hero-icon-wrapper:hover {
+            transform: scale(1.05) rotate(-2deg);
         }
 
-        .app-icon {
+        .hero-icon {
             width: 140px;
             height: 140px;
-            border-radius: 32px;
-            box-shadow: var(--shadow-lg);
+            border-radius: 36px;
+            box-shadow: var(--shadow-xl);
             position: relative;
             z-index: 2;
-            background: white;
         }
 
-        .app-icon-glow {
+        .hero-glow {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 160px;
-            height: 160px;
-            background: var(--primary-color);
-            filter: blur(60px);
-            opacity: 0.3;
+            width: 180px;
+            height: 180px;
+            background: var(--primary);
+            filter: blur(80px);
+            opacity: 0.5;
             z-index: 1;
-            border-radius: 50%;
+            animation: pulse 4s infinite ease-in-out;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.4; transform: translate(-50%, -50%) scale(0.95); }
+            50% { opacity: 0.6; transform: translate(-50%, -50%) scale(1.05); }
+            100% { opacity: 0.4; transform: translate(-50%, -50%) scale(0.95); }
         }
 
         .hero-title {
-            font-size: 64px;
+            font-size: clamp(48px, 6vw, 80px);
             line-height: 1.05;
             font-weight: 800;
+            letter-spacing: -0.03em;
             margin-bottom: 24px;
-            background: linear-gradient(135deg, var(--text-primary) 0%, #4a4a4a 100%);
+            background: linear-gradient(180deg, var(--text-main) 0%, #454545 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
         .hero-subtitle {
-            font-size: 24px;
-            line-height: 1.4;
-            font-weight: 500;
-            color: var(--text-secondary);
-            margin-bottom: 48px;
+            font-size: clamp(20px, 3vw, 24px);
+            color: var(--text-muted);
+            line-height: 1.5;
             max-width: 640px;
-            margin-left: auto;
-            margin-right: auto;
+            margin-bottom: 56px;
+            font-weight: 500;
         }
 
-        .app-store-badge {
-            height: 56px;
-            transition: transform 0.2s, box-shadow 0.2s;
-            border-radius: 10px;
-        }
-
-        .app-store-badge:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-        }
-
-        /* App Preview / Screenshots */
-        .app-preview {
-            padding: 80px 0;
-            background: var(--bg-features);
-            overflow: hidden;
-        }
-
-        .screenshots-wrapper {
-            width: 100%;
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-            scrollbar-width: none;
-            -ms-overflow-style: none;
-        }
-
-        .screenshots-wrapper::-webkit-scrollbar {
-            display: none;
-        }
-
-        .screenshots-scroll {
-            display: flex;
-            gap: 20px;
-            padding: 20px 0;
-            width: fit-content;
-            margin: 0 auto;
-        }
-
-        .screenshot-item {
-            flex: 0 0 auto;
-            width: 280px;
-            border-radius: var(--radius-large);
+        .app-store-btn {
+            display: inline-block;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            border-radius: 12px;
             overflow: hidden;
             box-shadow: var(--shadow-lg);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            background: white;
         }
 
-        .screenshot-item:hover {
-            transform: scale(1.02);
-            box-shadow: var(--shadow-lg), 0 0 40px rgba(var(--primary-rgb), 0.15);
+        .app-store-btn:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: var(--shadow-xl);
         }
 
-        .screenshot-item img {
-            width: 100%;
-            height: auto;
+        .app-store-btn img {
+            height: 60px;
             display: block;
         }
 
-        .scroll-hint {
-            text-align: center;
-            margin-top: 24px;
-            color: var(--text-secondary);
-            font-size: 14px;
+        /* Screenshots */
+        .screenshots {
+            padding: 100px 0;
+            background: linear-gradient(to bottom, var(--bg-body), var(--bg-surface));
+            overflow: hidden;
         }
 
-        .scroll-hint span {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        /* How It Works */
-        .how-it-works {
-            padding: 80px 0;
-            background: var(--bg-features);
-            border-bottom: 1px solid rgba(0,0,0,0.05);
-        }
-
-        .steps-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 24px;
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
-        .step-item {
-            text-align: center;
-            position: relative;
-        }
-
-        .step-item:not(:last-child)::after {
-            content: '';
-            position: absolute;
-            top: 32px;
-            right: -12px;
-            width: 24px;
-            height: 2px;
-            background: linear-gradient(90deg, var(--border-color), transparent);
-        }
-
-        .step-icon {
-            width: 64px;
-            height: 64px;
-            background: var(--bg-secondary);
-            border-radius: 20px;
+        .screenshots-track {
             display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 28px;
-            margin: 0 auto 16px;
-            box-shadow: var(--shadow-sm);
+            gap: 40px;
+            padding: 60px 24px;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            /* scrollbar-width: none; */
+            /* mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent); */
+            /* -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent); */
         }
 
-        .step-title {
-            font-size: 16px;
-            font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: 4px;
+        /* .screenshots-track::-webkit-scrollbar { display: none; } */
+
+        .screenshot-card {
+            flex: 0 0 320px;
+            border-radius: 40px;
+            overflow: hidden;
+            box-shadow: var(--shadow-xl);
+            scroll-snap-align: center;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            background: white;
+            position: relative;
+            border: 8px solid #fff; /* Mockup border */
         }
 
-        .step-desc {
-            font-size: 14px;
-            color: var(--text-secondary);
+        .screenshot-card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.15);
+        }
+
+        .screenshot-card img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 32px;
         }
 
         /* Features */
         .features {
-            padding: 80px 0 120px;
-            background: var(--bg-features);
+            background: var(--bg-body);
         }
 
-        .feature-item {
+        .feature-block {
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            margin-bottom: 120px;
-            gap: 80px;
+            gap: 100px;
+            margin-bottom: 180px;
         }
 
-        .feature-item:last-child {
-            margin-bottom: 0;
-        }
+        .feature-block:last-child { margin-bottom: 0; }
+        .feature-block:nth-child(even) { flex-direction: row-reverse; }
 
-        .feature-item:nth-child(even) {
-            flex-direction: row-reverse;
-        }
-
-        .feature-content {
+        .feature-text {
             flex: 1;
-            max-width: 480px;
-        }
-
-        .feature-image-container {
-            flex: 1.2;
-            display: flex;
-            justify-content: center;
-            position: relative;
-        }
-
-        .feature-image-container::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 80%;
-            height: 80%;
-            background: radial-gradient(circle, rgba(var(--primary-rgb), 0.05) 0%, transparent 70%);
-            z-index: 0;
-        }
-
-        .feature-image {
-            max-width: 100%;
-            border-radius: var(--radius-large);
-            box-shadow: var(--shadow-lg);
-            position: relative;
-            z-index: 1;
-            border: 1px solid rgba(0,0,0,0.03);
         }
 
         .feature-label {
-            font-size: 14px;
-            font-weight: 700;
+            font-size: 13px;
+            font-weight: 800;
+            color: var(--primary);
             text-transform: uppercase;
-            letter-spacing: 0.05em;
-            color: var(--primary-color);
-            margin-bottom: 16px;
-            display: block;
+            letter-spacing: 0.1em;
+            margin-bottom: 20px;
+            display: inline-block;
+            background: rgba(var(--primary-rgb), 0.1);
+            padding: 6px 12px;
+            border-radius: 100px;
         }
 
         .feature-title {
-            font-size: 40px;
-            line-height: 1.1;
-            font-weight: 700;
+            font-size: 48px;
+            font-weight: 800;
             margin-bottom: 24px;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
         }
 
         .feature-desc {
             font-size: 20px;
-            line-height: 1.5;
-            font-weight: 400;
-            color: var(--text-secondary);
+            color: var(--text-muted);
+            line-height: 1.6;
         }
 
-        /* Cleanup Tools */
-        .cleanup-tools {
-            padding: 100px 0;
-            background: var(--bg-secondary);
-            border-top: 1px solid rgba(0,0,0,0.05);
+        .feature-visual {
+            flex: 1.2;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            perspective: 1000px;
         }
 
-        .tools-grid {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 20px;
-            max-width: 900px;
-            margin: 0 auto;
+        .feature-visual::before {
+            content: '';
+            position: absolute;
+            width: 140%;
+            height: 140%;
+            background: radial-gradient(circle, rgba(var(--primary-rgb), 0.06) 0%, transparent 70%);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 0;
         }
 
-        .tool-item {
-            text-align: center;
-            padding: 28px 16px;
+        .feature-img {
+            width: 100%;
+            max-width: 540px;
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-xl);
+            position: relative;
+            z-index: 1;
             background: white;
-            border-radius: var(--radius-medium);
-            box-shadow: var(--shadow-sm);
-            transition: transform 0.2s, box-shadow 0.2s;
+            transition: transform 0.5s ease;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+        
+        .feature-block:hover .feature-img {
+            transform: scale(1.02) rotateY(2deg);
         }
 
-        .tool-item:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-md);
-        }
-
-        .tool-icon {
-            font-size: 32px;
-            margin-bottom: 12px;
-            display: block;
-        }
-
-        .tool-title {
-            font-size: 14px;
-            font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: 4px;
-        }
-
-        .tool-desc {
-            font-size: 12px;
-            color: var(--text-secondary);
-            line-height: 1.4;
-        }
-
-        /* Support / FAQ */
-        .support {
-            padding: 120px 0;
-            background: var(--bg-features);
-            border-top: 1px solid rgba(0,0,0,0.05);
+        /* How it works / Steps */
+        .steps-section {
+            background: var(--bg-surface);
+            position: relative;
         }
 
         .section-header {
             text-align: center;
-            margin-bottom: 80px;
+            max-width: 700px;
+            margin: 0 auto 100px;
         }
 
         .section-title {
-            font-size: 40px;
-            font-weight: 700;
-            margin-bottom: 16px;
+            font-size: 42px;
+            font-weight: 800;
+            margin-bottom: 20px;
+            letter-spacing: -0.02em;
         }
 
         .section-subtitle {
             font-size: 20px;
-            color: var(--text-secondary);
+            color: var(--text-muted);
+        }
+
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 48px;
+            position: relative;
+        }
+
+        /* Connecting line */
+        .steps-grid::before {
+            content: '';
+            position: absolute;
+            top: 40px;
+            left: 10%;
+            right: 10%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--text-muted) 50%, transparent);
+            opacity: 0.2;
+            z-index: 0;
+        }
+
+        .step-card {
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            background: white;
+            padding: 32px 24px;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            transition: transform 0.3s ease;
+        }
+
+        .step-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .step-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--bg-surface);
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            margin: 0 auto 24px;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .step-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .step-desc {
+            font-size: 16px;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        /* FAQ */
+        .faq-section {
+            background: var(--bg-body);
         }
 
         .faq-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-            gap: 32px;
-            max-width: 960px;
+            max-width: 800px;
             margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
         }
 
-        .faq-item {
-            background: var(--bg-secondary);
+        .faq-card {
+            background: white;
             padding: 32px;
-            border-radius: var(--radius-medium);
-            box-shadow: var(--shadow-sm);
-            transition: transform 0.2s, box-shadow 0.2s;
+            border-radius: var(--radius-lg);
+            border: 1px solid rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            cursor: pointer;
         }
 
-        .faq-item:hover {
-            transform: translateY(-2px);
+        .faq-card:hover {
+            border-color: rgba(0,0,0,0.1);
             box-shadow: var(--shadow-md);
         }
 
-        .faq-item h3 {
+        .faq-card[open] {
+            background: var(--bg-surface);
+        }
+
+        .faq-q {
             font-size: 18px;
-            font-weight: 600;
-            margin-bottom: 12px;
-            color: var(--text-primary);
-        }
-
-        .faq-item p {
-            font-size: 16px;
-            color: var(--text-secondary);
-            line-height: 1.6;
-        }
-
-        .contact-support {
-            text-align: center;
-            margin-top: 80px;
-        }
-
-        .contact-btn {
-            display: inline-flex;
+            font-weight: 700;
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
             align-items: center;
-            justify-content: center;
-            padding: 12px 32px;
-            background: white;
-            border: 1px solid var(--border-color);
-            border-radius: 100px;
-            color: var(--text-primary);
-            font-weight: 600;
-            font-size: 16px;
-            transition: all 0.2s;
         }
 
-        .contact-btn:hover {
-            background: var(--bg-secondary);
-            border-color: var(--text-secondary);
+        .faq-a {
+            font-size: 16px;
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-top: 12px;
         }
 
         /* Footer */
         .footer {
-            background: var(--bg-footer);
-            padding: 60px 0;
-            color: var(--text-footer);
-            border-top: none;
+            background: #0f0f11;
+            color: #a1a1aa;
+            padding: 100px 0 40px;
         }
 
         .footer-content {
             display: flex;
             justify-content: space-between;
-            align-items: center;
+            align-items: flex-start;
+            margin-bottom: 80px;
         }
 
-        .footer-left {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .footer-logo {
+        .footer-brand {
+            color: white;
+            font-weight: 700;
+            font-size: 24px;
             display: flex;
             align-items: center;
-            gap: 10px;
-            color: #fff;
-            font-weight: 600;
-            font-size: 16px;
+            gap: 16px;
+            margin-bottom: 20px;
         }
 
-        .footer-logo img {
-            width: 24px;
-            height: 24px;
-            border-radius: 6px;
+        .footer-brand img {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
         }
 
-        .copyright {
-            font-size: 12px;
-            color: var(--text-footer);
-            opacity: 0.6;
-        }
-
-        .footer-links {
+        .footer-nav {
             display: flex;
-            gap: 24px;
+            gap: 40px;
         }
 
-        .footer-links a {
-            font-size: 13px;
-            color: var(--text-footer);
-            font-weight: 500;
+        .footer-nav a {
+            color: #a1a1aa;
+            text-decoration: none;
             transition: color 0.2s;
+            font-weight: 500;
         }
 
-        .footer-links a:hover {
-            color: var(--text-footer-hover);
+        .footer-nav a:hover { color: white; }
+
+        .footer-bottom {
+            border-top: 1px solid #222;
+            padding-top: 40px;
+            text-align: center;
+            font-size: 14px;
+            color: #71717a;
         }
 
-        /* Mobile */
+        /* Mobile Responsive */
         @media (max-width: 768px) {
-            .hero { padding: 100px 0 60px; }
-            .hero-title { font-size: 40px; }
-            .hero-subtitle { font-size: 20px; }
-
-            .steps-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 32px;
-            }
-
-            .step-item:not(:last-child)::after {
-                display: none;
-            }
-
-            .tools-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 16px;
-            }
-
-            .feature-item {
+            .hero-title { font-size: 48px; }
+            .feature-block {
                 flex-direction: column;
                 text-align: center;
                 gap: 48px;
-                margin-bottom: 80px;
+                margin-bottom: 120px;
             }
-
-            .feature-item:nth-child(even) {
-                flex-direction: column;
-            }
-
-            .feature-content { max-width: 100%; }
-
-            .faq-grid {
-                grid-template-columns: 1fr;
-            }
-
+            .feature-block:nth-child(even) { flex-direction: column; }
+            .feature-visual { width: 100%; }
+            .steps-grid::before { display: none; }
             .footer-content {
-                flex-direction: column-reverse;
-                gap: 24px;
-                text-align: center;
-            }
-
-            .footer-left {
-                align-items: center;
-            }
-
-            .footer-links {
                 flex-direction: column;
+                gap: 48px;
+                text-align: center;
                 align-items: center;
-                gap: 16px;
             }
-
-            .section-title {
-                font-size: 32px;
+            .footer-nav {
+                flex-direction: column;
+                gap: 20px;
             }
         }
     </style>
 </head>
 <body>
 
-    <!-- Navbar -->
     <nav class="navbar">
-        <div class="navbar-content">
-            <a href="#" class="nav-title">
+        <div class="container nav-inner">
+            <a href="#" class="nav-brand">
                 <img src="../../assets/<%= homepage.app_icon %>" alt="<%= name %>">
                 <%= name %>
             </a>
-            <div class="nav-right">
-                <a href="#support" class="nav-link">FAQ</a>
-                <a href="<%= homepage.app_store_url %>" class="nav-download">Download</a>
+            <div class="nav-actions">
+                <a href="#features" class="nav-link">Features</a>
+                <a href="#faq" class="nav-link">FAQ</a>
+                <a href="<%= homepage.app_store_url %>" class="btn-primary">Download</a>
             </div>
         </div>
     </nav>
 
-    <!-- Hero -->
     <section class="hero">
-        <div class="container hero-content">
-            <div class="app-icon-wrapper animate-fade-up">
-                <div class="app-icon-glow"></div>
-                <img src="../../assets/<%= homepage.app_icon %>" alt="<%= name %> Icon" class="app-icon">
+        <div class="hero-bg"></div>
+        <div class="container hero-content reveal">
+            <div class="hero-icon-wrapper">
+                <div class="hero-glow"></div>
+                <img src="../../assets/<%= homepage.app_icon %>" alt="<%= name %>" class="hero-icon">
             </div>
-
-            <h1 class="hero-title animate-fade-up delay-100"><%= homepage.slogan %></h1>
-            <p class="hero-subtitle animate-fade-up delay-200"><%= homepage.sub_slogan %></p>
-
-            <div class="animate-fade-up delay-300">
-                <a href="<%= homepage.app_store_url %>" target="_blank" style="display: inline-block;">
-                    <img src="../../assets/common/app-store-badge.svg" alt="Download on the App Store" class="app-store-badge">
-                </a>
-            </div>
+            <h1 class="hero-title"><%= homepage.slogan %></h1>
+            <p class="hero-subtitle"><%= homepage.sub_slogan %></p>
+            <a href="<%= homepage.app_store_url %>" class="app-store-btn">
+                <img src="../../assets/common/app-store-badge.svg" alt="Download on the App Store">
+            </a>
         </div>
     </section>
 
     <% if (homepage.screenshots && homepage.screenshots.length > 0) { %>
-    <!-- App Preview -->
-    <section class="app-preview">
+    <section class="screenshots reveal">
         <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">See It In Action</h2>
-                <p class="section-subtitle">Swipe through app screens.</p>
+            <div class="text-center" style="margin-bottom: 60px;">
+                <h2 class="section-title">Interface</h2>
             </div>
         </div>
-
-        <div class="screenshots-wrapper">
-            <div class="screenshots-scroll">
-                <% homepage.screenshots.forEach(function(screenshot, index) { %>
-                <div class="screenshot-item">
-                    <img src="<%= screenshot %>" alt="App Screenshot <%= index + 1 %>" loading="lazy">
-                </div>
-                <% }); %>
+        <div class="screenshots-track">
+            <% homepage.screenshots.forEach(function(screenshot) { %>
+            <div class="screenshot-card">
+                <img src="<%= screenshot %>" alt="App Screenshot" loading="lazy">
             </div>
-        </div>
-
-        <div class="scroll-hint">
-            <span>← Swipe to explore →</span>
+            <% }); %>
         </div>
     </section>
     <% } %>
 
-    <% if (homepage.steps && homepage.steps.length > 0) { %>
-    <!-- How It Works -->
-    <section class="how-it-works">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">How It Works</h2>
-                <p class="section-subtitle">Simple, fast, and satisfying.</p>
-            </div>
-
-            <div class="steps-grid">
-                <% homepage.steps.forEach(function(step) { %>
-                <div class="step-item">
-                    <div class="step-icon"><%= step.icon %></div>
-                    <div class="step-title"><%= step.title %></div>
-                    <div class="step-desc"><%= step.description %></div>
-                </div>
-                <% }); %>
-            </div>
-        </div>
-    </section>
-    <% } %>
-
-    <!-- Features -->
-    <section class="features">
+    <section id="features" class="features section-padding">
         <div class="container">
             <% homepage.features.forEach(function(feature, index) { %>
-            <div class="feature-item">
-                <div class="feature-content">
-                    <span class="feature-label">Feature <%= index + 1 %></span>
+            <div class="feature-block reveal">
+                <div class="feature-text">
+                    <span class="feature-label">Feature 0<%= index + 1 %></span>
                     <h2 class="feature-title"><%= feature.title %></h2>
                     <p class="feature-desc"><%= feature.description %></p>
                 </div>
-                <div class="feature-image-container">
-                    <img src="../../assets/<%= feature.image %>" alt="<%= feature.title %>" class="feature-image">
+                <div class="feature-visual">
+                    <img src="../../assets/<%= feature.image %>" alt="<%= feature.title %>" class="feature-img">
                 </div>
             </div>
             <% }); %>
         </div>
     </section>
 
-    <% if (homepage.cleanup_tools && homepage.cleanup_tools.length > 0) { %>
-    <!-- Cleanup Tools -->
-    <section class="cleanup-tools">
+    <% if (homepage.steps && homepage.steps.length > 0) { %>
+    <section class="steps-section section-padding">
         <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Cleanup Tools</h2>
-                <p class="section-subtitle">Everything you need to reclaim your storage.</p>
+            <div class="section-header reveal">
+                <h2 class="section-title">How It Works</h2>
+                <p class="section-subtitle">Simple steps to clean up your gallery.</p>
             </div>
-
-            <div class="tools-grid">
-                <% homepage.cleanup_tools.forEach(function(tool) { %>
-                <div class="tool-item">
-                    <span class="tool-icon"><%= tool.icon %></span>
-                    <div class="tool-title"><%= tool.title %></div>
-                    <div class="tool-desc"><%= tool.description %></div>
+            <div class="steps-grid reveal">
+                <% homepage.steps.forEach(function(step) { %>
+                <div class="step-card">
+                    <div class="step-icon"><%= step.icon %></div>
+                    <h3 class="step-title"><%= step.title %></h3>
+                    <p class="step-desc"><%= step.description %></p>
                 </div>
                 <% }); %>
             </div>
@@ -818,53 +703,83 @@
     </section>
     <% } %>
 
-    <!-- Support / FAQ -->
-    <section id="support" class="support">
+    <section id="faq" class="faq-section section-padding">
         <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Frequently Asked Questions</h2>
-                <p class="section-subtitle">Everything you need to know about the app.</p>
+            <div class="section-header reveal">
+                <h2 class="section-title">FAQ</h2>
+                <p class="section-subtitle">Common questions and answers.</p>
             </div>
-
-            <div class="faq-grid">
+            <div class="faq-grid reveal">
                 <% homepage.faqs.forEach(function(faq) { %>
-                <div class="faq-item">
-                    <h3><%= faq.question %></h3>
-                    <p><%= faq.answer %></p>
-                </div>
+                <details class="faq-card">
+                    <summary class="faq-q"><%= faq.question %></summary>
+                    <p class="faq-a"><%= faq.answer %></p>
+                </details>
                 <% }); %>
             </div>
-
-            <div class="contact-support">
-                <a href="mailto:<%= email %>?subject=<%= homepage.support_email_subject || 'Support Request' %>" class="contact-btn">
-                    Contact Support
-                </a>
+            <div class="text-center reveal" style="margin-top: 80px;">
+                <a href="mailto:<%= email %>" class="btn-primary" style="background: var(--bg-surface); color: var(--text-main); border: 1px solid #ddd;">Contact Support</a>
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
     <footer class="footer">
-        <div class="container footer-content">
-            <div class="footer-left">
-                <div class="footer-logo">
-                    <img src="../../assets/<%= homepage.app_icon %>" alt="<%= name %>">
-                    <span><%= name %></span>
+        <div class="container">
+            <div class="footer-content">
+                <div>
+                    <div class="footer-brand">
+                        <img src="../../assets/<%= homepage.app_icon %>" alt="<%= name %>">
+                        <%= name %>
+                    </div>
+                    <p style="color: #666; max-width: 300px; line-height: 1.6;">
+                        <%= homepage.sub_slogan %>
+                    </p>
                 </div>
-                <div class="copyright">
-                    &copy; <%= new Date().getFullYear() %> <%= homepage.company_name || name %>. All rights reserved.
+                <div class="footer-nav">
+                    <a href="../privacy/">Privacy</a>
+                    <% if (pages.includes('terms')) { %>
+                    <a href="../terms/">Terms</a>
+                    <% } %>
+                    <a href="mailto:<%= email %>">Support</a>
                 </div>
             </div>
-
-            <div class="footer-links">
-                <a href="../privacy/">Privacy Policy</a>
-                <% if (pages.includes('terms')) { %>
-                <a href="../terms/">Terms of Use</a>
-                <% } %>
-                <a href="mailto:<%= email %>">Contact</a>
+            <div class="footer-bottom">
+                &copy; <%= new Date().getFullYear() %> <%= homepage.company_name || name %>. All rights reserved.
             </div>
         </div>
     </footer>
+
+    <script>
+        // Scroll Reveal Animation
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Navbar Scroll Effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+    </script>
 
 </body>
 </html>

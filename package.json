@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "ts-node src/index.ts",
     "build": "ts-node scripts/build.ts",
+    "preview": "python3 -m http.server 3000 --directory dist",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
