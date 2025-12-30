@@ -13,19 +13,25 @@
 
     <style>
         :root {
-            --primary: <%= homepage.theme_color || '#2563eb' %>;
-            --primary-rgb: <%= (function(hex) {
-                var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex || '#2563eb');
-                return result ? parseInt(result[1], 16) + ", " + parseInt(result[2], 16) + ", " + parseInt(result[3], 16) : "37, 99, 235";
-            })(homepage.theme_color) %>;
+            /* Extracted from Icon */
+            --color-teal: #00A3B1;   /* Book cover darker shade for text/buttons */
+            --color-cyan: #26C6DA;   /* Book cover lighter shade */
+            --color-purple: #9575CD; /* Background bottom shade */
+            --color-yellow: #FFD54F; /* Sparkles */
+            
+            /* Brand Gradient: Fresh Cyan to Soft Purple */
+            --brand-gradient: linear-gradient(135deg, #26C6DA 0%, #00A3B1 50%, #5E60CE 100%);
+            
+            --primary: #00A3B1;
+            --primary-rgb: 0, 163, 177;
 
             /* Modern Palette */
-            --bg-body: #FAFAFA; /* Slightly warmer/softer than pure white */
+            --bg-body: #F8FDFF; /* Very subtle cool tint */
             --bg-surface: #FFFFFF;
-            --bg-surface-hover: #F8FAFC;
+            --bg-surface-hover: #F0F9FA;
             
-            --text-main: #0F172A; /* Slate 900 - Richer than black */
-            --text-muted: #64748B; /* Slate 500 - Clean and readable */
+            --text-main: #1E293B; /* Slate 800 */
+            --text-muted: #64748B; /* Slate 500 */
             --text-light: #FFFFFF;
 
             --radius-xl: 32px;
@@ -33,15 +39,15 @@
             --radius-md: 16px;
             --radius-sm: 12px;
 
-            /* Smoother Shadows */
-            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -1px rgba(0, 0, 0, 0.04);
-            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.04);
-            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.08), 0 10px 10px -5px rgba(0, 0, 0, 0.03);
-            --shadow-glow: 0 0 120px rgba(var(--primary-rgb), 0.25);
+            /* Smoother Shadows - Tinted with Cyan */
+            --shadow-sm: 0 2px 8px rgba(0, 163, 177, 0.08);
+            --shadow-md: 0 6px 16px rgba(0, 163, 177, 0.1);
+            --shadow-lg: 0 12px 32px rgba(0, 163, 177, 0.12);
+            --shadow-xl: 0 24px 48px rgba(0, 163, 177, 0.15);
+            --shadow-glow: 0 0 80px rgba(38, 198, 218, 0.3);
 
-            --container-width: 1200px;
-            --nav-height: 80px; /* Slightly taller for modern feel */
+            --container-width: 1120px;
+            --nav-height: 72px;
         }
 
         * {
@@ -161,26 +167,27 @@
         .nav-link:hover { color: var(--text-main); }
 
         .btn-primary {
-            background: var(--text-main);
+            background: var(--brand-gradient);
             color: white;
-            padding: 12px 24px;
+            padding: 14px 32px;
             border-radius: 100px;
             text-decoration: none;
-            font-size: 15px;
+            font-size: 16px;
             font-weight: 600;
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            box-shadow: 0 8px 20px rgba(0, 163, 177, 0.25);
+            border: 1px solid rgba(255,255,255,0.1);
         }
 
         .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-            background: #000; /* Darker on hover */
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 12px 30px rgba(0, 163, 177, 0.35);
+            filter: brightness(1.1);
         }
 
         /* Hero Section */
         .hero {
-            padding-top: calc(var(--nav-height) + 100px);
+            padding-top: calc(var(--nav-height) + 80px);
             padding-bottom: 140px;
             position: relative;
             overflow: hidden;
@@ -194,8 +201,8 @@
             width: 140vw;
             height: 140vh;
             background: 
-                radial-gradient(circle at 20% 30%, rgba(var(--primary-rgb), 0.12) 0%, transparent 60%),
-                radial-gradient(circle at 80% 40%, rgba(var(--primary-rgb), 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 20% 30%, rgba(38, 198, 218, 0.15) 0%, transparent 60%),
+                radial-gradient(circle at 80% 40%, rgba(149, 117, 205, 0.12) 0%, transparent 50%),
                 radial-gradient(circle at 50% 50%, rgba(255,255,255,0.8) 0%, transparent 100%);
             z-index: -1;
             pointer-events: none;
@@ -238,7 +245,7 @@
             transform: translate(-50%, -50%);
             width: 180px;
             height: 180px;
-            background: var(--primary);
+            background: var(--brand-gradient);
             filter: blur(80px);
             opacity: 0.4;
             z-index: 1;
@@ -258,7 +265,7 @@
             letter-spacing: -0.03em;
             margin-bottom: 24px;
             color: var(--text-main);
-            background: linear-gradient(135deg, var(--text-main) 30%, var(--primary) 100%);
+            background: linear-gradient(135deg, var(--text-main) 30%, var(--color-teal) 70%, var(--color-purple) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -358,17 +365,23 @@
         .feature-label {
             font-size: 14px;
             font-weight: 700;
-            color: var(--primary);
+            color: var(--color-blue);
             text-transform: uppercase;
             letter-spacing: 0.05em;
             margin-bottom: 24px;
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            background: rgba(var(--primary-rgb), 0.08);
+            background: rgba(0, 122, 255, 0.08);
             padding: 8px 16px;
             border-radius: 100px;
         }
+
+        /* Cycle through brand colors for features */
+        .feature-block:nth-child(1) .feature-label { color: var(--color-blue); background: rgba(0, 122, 255, 0.1); }
+        .feature-block:nth-child(2) .feature-label { color: var(--color-purple); background: rgba(88, 86, 214, 0.1); }
+        .feature-block:nth-child(3) .feature-label { color: var(--color-green); background: rgba(52, 199, 89, 0.1); }
+        .feature-block:nth-child(4) .feature-label { color: var(--color-orange); background: rgba(255, 149, 0, 0.1); }
 
         .feature-title {
             font-size: 56px;
