@@ -13,9 +13,9 @@
     ],
     "pages": ["homepage", "privacy", "terms"],
     "homepage": {
-      "slogan": "Swipe left to delete. Swipe right to keep.",
+      "slogan": "Swipe Delete, Wipe Duplicatess.",
       "sub_slogan": "AI-powered. Ad-free. 99%+ accuracy.",
-      "app_icon": "photocleaner/icon.svg",
+      "app_icon": "photocleaner/icon.png",
       "app_store_url": "#",
       "theme_color": "#007AFF",
       "features": [
