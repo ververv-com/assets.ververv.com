@@ -9,7 +9,7 @@
 - **目标**: 统一管理多 App 的静态资源（协议、配置、图片）
 - **域名**: `s.ververv.com`
 - **技术栈**: TypeScript + Node.js + EJS + GitHub Pages
-- **当前应用**: CleanPhoto
+- **当前应用**: SwipeClean, SafeAlone
 
 ---
 
@@ -45,7 +45,16 @@
 ├── /dist                   # 构建输出（gitignore）
 │   ├── index.html          # 站点首页
 │   ├── /assets             # 静态资源
-│   └── /photocleaner
+│   ├── /photocleaner
+│   │   ├── index.html      # 重定向到 home/
+│   │   ├── /home
+│   │   │   └── index.html  # Landing Page
+│   │   ├── /privacy
+│   │   │   └── index.html  # 隐私协议
+│   │   ├── /terms
+│   │   │   └── index.html  # 服务条款
+│   │   └── config.json     # App 配置
+│   └── /safealone
 │       ├── index.html      # 重定向到 home/
 │       ├── /home
 │       │   └── index.html  # Landing Page
@@ -60,16 +69,30 @@
 ```
 
 ---
-
-## 数据结构
-
-### `data/apps.json`
-
-```json
-[
+SwipeClean",
+    "email": "support@photocleaner.ververv.com",
+    "updated_date": "December 13, 2025",
+    "has_iap": true,
+    "third_party_services": [
+      {
+        "name": "One Signal",
+        "url": "https://onesignal.com/privacy_policy"
+      }
+    ],
+    "pages": ["homepage", "privacy", "terms"],
+    "homepage": {
+      "slogan": "...",
+      "features": [...],
+      "faqs": [...]
+    }
+  },
   {
-    "key": "photocleaner",
-    "name": "CleanPhoto",
+    "key": "safealone",
+    "name": "SafeAlone",
+    "email": "support@safealone.online",
+    "updated_date": "January 12, 2026",
+    "has_iap": true,
+    "third_party_services": ["name": "CleanPhoto",
     "email": "support@ververv.com",
     "updated_date": "December 13, 2025",
     "has_iap": true,
@@ -123,11 +146,16 @@ const outputPath = path.join(appDir, outputDir, 'index.html');
 ```
 
 ---
-
-## 部署
-
-使用 GitHub Pages + GitHub Actions 自动部署。
-
+SwipeClean 首页 | `https://s.ververv.com/photocleaner/home/` |
+| SwipeClean Support | `https://s.ververv.com/photocleaner/home/#support` |
+| SwipeClean 隐私协议 | `https://s.ververv.com/photocleaner/privacy/` |
+| SwipeClean 服务条款 | `https://s.ververv.com/photocleaner/terms/` |
+| SwipeClean 配置 | `https://s.ververv.com/photocleaner/config.json` |
+| SafeAlone 首页 | `https://s.ververv.com/safealone/home/` |
+| SafeAlone Support | `https://s.ververv.com/safealone/home/#support` |
+| SafeAlone 隐私协议 | `https://s.ververv.com/safealone/privacy/` |
+| SafeAlone 服务条款 | `https://s.ververv.com/safealone/terms/` |
+| SafeAlone 配置 | `https://s.ververv.com/safealone
 详见：`change/init/deploy-github-pages.md`
 
 ---

@@ -127,5 +127,76 @@
       "company_name": "Ververv",
       "company_url": "Ververv.com"
     }
+  },
+  {
+    "key": "safealone",
+    "name": "SafeAlone",
+    "email": "support@safealone.online",
+    "updated_date": "January 12, 2026",
+    "has_iap": true,
+    "third_party_services": [],
+    "pages": ["homepage", "privacy", "terms"],
+    "homepage": {
+      "slogan": "SafeAlone - Check In Daily",
+      "sub_slogan": "Safety Alerts & Protection",
+      "app_icon": "safealone/icon.png",
+      "app_store_url": "#",
+      "theme_color": "#FF6B6B",
+      "features": [
+        {
+          "title": "Daily Check-In",
+          "description": "Scheduled safety reminders and wellness alerts.",
+          "image": "safealone/feature-checkin.svg"
+        },
+        {
+          "title": "Emergency Contact",
+          "description": "Quick access to emergency contacts and notifications.",
+          "image": "safealone/feature-emergency.svg"
+        },
+        {
+          "title": "Privacy First",
+          "description": "Your data stays on your device. End-to-end protected.",
+          "image": "safealone/feature-privacy.svg"
+        },
+        {
+          "title": "Lone Worker Protection",
+          "description": "Safety monitoring for solo work and travel.",
+          "image": "safealone/feature-protection.svg"
+        }
+      ],
+      "screenshots": [
+        "https://assets.ververv.com/safealone/screenshot-01.png",
+        "https://assets.ververv.com/safealone/screenshot-02.png",
+        "https://assets.ververv.com/safealone/screenshot-03.png",
+        "https://assets.ververv.com/safealone/screenshot-04.png",
+        "https://assets.ververv.com/safealone/screenshot-05.png"
+      ],
+      "faqs": [
+        {
+          "question": "How does SafeAlone work?",
+          "answer": "SafeAlone helps solo workers and travelers stay safe by providing daily check-ins, emergency alerts, and direct contact with emergency contacts when needed."
+        },
+        {
+          "question": "Is my information private?",
+          "answer": "Yes, absolutely. Your data is encrypted and never stored on our servers. Everything is processed locally on your device."
+        },
+        {
+          "question": "Can I customize check-in schedules?",
+          "answer": "Yes. You can set custom check-in times and frequency based on your work or travel schedule."
+        },
+        {
+          "question": "What happens if I miss a check-in?",
+          "answer": "SafeAlone will send you reminder notifications. If you continue to miss check-ins, it will automatically notify your emergency contacts."
+        },
+        {
+          "question": "How much does SafeAlone cost?",
+          "answer": "We offer a free version with basic features. Premium features are available through a subscription for enhanced protection and customization."
+        }
+      ],
+      "support_email_subject": "SafeAlone Support Request",
+      "support_email_body": "Device: iPhone\niOS Version:\nApp Version: 1.0\n\nPlease describe your issue here:",
+      "company_name": "Keli Inc.",
+      "company_url": "safealone.online"
+    }
   }
 ]
