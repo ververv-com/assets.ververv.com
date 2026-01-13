@@ -9,7 +9,7 @@
 - **目标**: 统一管理多 App 的静态资源（协议、配置、图片）
 - **域名**: `s.ververv.com`
 - **技术栈**: TypeScript + Node.js + EJS + GitHub Pages
-- **当前应用**: SwipeClean, SafeAlone
+- **当前应用**: SwipeClean, AloneGuard
 
 ---
 
@@ -54,7 +54,7 @@
 │   │   ├── /terms
 │   │   │   └── index.html  # 服务条款
 │   │   └── config.json     # App 配置
-│   └── /safealone
+│   └── /aloneguard
 │       ├── index.html      # 重定向到 home/
 │       ├── /home
 │       │   └── index.html  # Landing Page
@@ -87,12 +87,12 @@ SwipeClean",
     }
   },
   {
-    "key": "safealone",
-    "name": "SafeAlone",
-    "email": "support@safealone.online",
-    "updated_date": "January 12, 2026",
+    "key": "aloneguard",
+    "name": "AloneGuard",
+    "email": "support@aloneguard.com",
+    "updated_date": "January 13, 2026",
     "has_iap": true,
-    "third_party_services": ["name": "CleanPhoto",
+    "third_party_services": []
     "email": "support@ververv.com",
     "updated_date": "December 13, 2025",
     "has_iap": true,
@@ -151,11 +151,11 @@ SwipeClean 首页 | `https://s.ververv.com/photocleaner/home/` |
 | SwipeClean 隐私协议 | `https://s.ververv.com/photocleaner/privacy/` |
 | SwipeClean 服务条款 | `https://s.ververv.com/photocleaner/terms/` |
 | SwipeClean 配置 | `https://s.ververv.com/photocleaner/config.json` |
-| SafeAlone 首页 | `https://s.ververv.com/safealone/home/` |
-| SafeAlone Support | `https://s.ververv.com/safealone/home/#support` |
-| SafeAlone 隐私协议 | `https://s.ververv.com/safealone/privacy/` |
-| SafeAlone 服务条款 | `https://s.ververv.com/safealone/terms/` |
-| SafeAlone 配置 | `https://s.ververv.com/safealone
+| AloneGuard 首页 | `https://s.ververv.com/aloneguard/home/` |
+| AloneGuard Support | `https://s.ververv.com/aloneguard/home/#support` |
+| AloneGuard 隐私协议 | `https://s.ververv.com/aloneguard/privacy/` |
+| AloneGuard 服务条款 | `https://s.ververv.com/aloneguard/terms/` |
+| AloneGuard 配置 | `https://s.ververv.com/aloneguard/config.json` |
 详见：`change/init/deploy-github-pages.md`
 
 ---
