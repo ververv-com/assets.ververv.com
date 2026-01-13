@@ -50,6 +50,15 @@
             --nav-height: 72px;
         }
 
+        <% if (homepage.theme_color) { %>
+        :root {
+            --primary: <%= homepage.theme_color %>;
+            --primary-rgb: <%= helpers.hexToRgb(homepage.theme_color) %>;
+            --color-teal: <%= homepage.theme_color %>; /* Fallback for where teal is used */
+            --brand-gradient: linear-gradient(135deg, <%= homepage.theme_color %> 0%, <%= homepage.theme_color %> 50%, <%= homepage.theme_color %> 100%); 
+        }
+        <% } %>
+
         * {
             margin: 0;
             padding: 0;
@@ -668,6 +677,15 @@
     </style>
 </head>
 <body>
+    <% 
+        let mailto = `mailto:${email}`;
+        if (homepage.support_email_subject || homepage.support_email_body) {
+            const params = [];
+            if (homepage.support_email_subject) params.push(`subject=${encodeURIComponent(homepage.support_email_subject)}`);
+            if (homepage.support_email_body) params.push(`body=${encodeURIComponent(homepage.support_email_body)}`);
+            mailto += `?${params.join('&')}`;
+        }
+    %>
 
     <nav class="navbar">
         <div class="container nav-inner">
@@ -677,7 +695,7 @@
             </a>
             <div class="nav-actions">
                 <a href="#features" class="nav-link">Features</a>
-                <a href="#faq" class="nav-link">FAQ</a>
+                <a href="#support" class="nav-link">Support</a>
                 <a href="<%= homepage.app_store_url %>" class="btn-primary">Download</a>
             </div>
         </div>
@@ -752,10 +770,10 @@
     </section>
     <% } %>
 
-    <section id="faq" class="faq-section section-padding">
+    <section id="support" class="faq-section section-padding">
         <div class="container">
             <div class="section-header reveal">
-                <h2 class="section-title">FAQ</h2>
+                <h2 class="section-title">Support & FAQ</h2>
                 <p class="section-subtitle">Common questions and answers.</p>
             </div>
             <div class="faq-grid reveal">
@@ -767,7 +785,7 @@
                 <% }); %>
             </div>
             <div class="text-center reveal" style="margin-top: 80px;">
-                <a href="mailto:<%= email %>" class="btn-primary" style="background: var(--bg-surface); color: var(--text-main); border: 1px solid #ddd;">Contact Support</a>
+                <a href="<%= mailto %>" class="btn-primary" style="background: var(--bg-surface); color: var(--text-main); border: 1px solid #ddd;">Contact Support</a>
             </div>
         </div>
     </section>
@@ -792,7 +810,7 @@
                     <% if (pages.includes('terms')) { %>
                     <a href="../terms/">Terms</a>
                     <% } %>
-                    <a href="mailto:<%= email %>">Support</a>
+                    <a href="<%= mailto %>">Support</a>
                 </div>
             </div>
         </div>

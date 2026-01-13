@@ -60,6 +60,14 @@ const PAGE_TEMPLATES: Record<string, string> = {
     homepage: 'homepage.ejs'
 };
 
+// 辅助函数
+function hexToRgb(hex: string): string {
+    const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    return result 
+        ? `${parseInt(result[1], 16)}, ${parseInt(result[2], 16)}, ${parseInt(result[3], 16)}`
+        : '0, 0, 0';
+}
+
 async function build() {
     console.log('🚀 [Build] 开始构建...');
 
@@ -101,7 +109,10 @@ async function build() {
                 }
 
                 const template = await fs.readFile(templatePath, 'utf-8');
-                const html = ejs.render(template, app);
+                const html = ejs.render(template, { 
+                    ...app, 
+                    helpers: { hexToRgb } 
+                });
 
                 // Clean URLs: 输出到子目录，文件名为 index.html
                 // homepage → home/index.html

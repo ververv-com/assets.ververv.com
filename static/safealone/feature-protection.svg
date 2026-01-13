@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" width="400" height="300">
+  <rect width="400" height="300" rx="16" fill="#FFF0F0"/>
+  <text x="200" y="150" text-anchor="middle" fill="#FF6B6B" font-family="-apple-system, sans-serif" font-size="24" font-weight="600">Lone Worker Protection</text>
+  <rect x="100" y="100" width="200" height="10" rx="5" fill="#FF6B6B" opacity="0.2"/>
+</svg>
