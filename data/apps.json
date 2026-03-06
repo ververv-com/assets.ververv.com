@@ -219,22 +219,22 @@
         {
           "title": "Import PDF Fast",
           "description": "Add documents from Files or scan paper pages into a clean PDF workflow.",
-          "image": "signseal/screenshot-01.png"
+          "image": "signseal/screenshot-01.webp"
         },
         {
           "title": "Create Your Signature",
           "description": "Draw reusable signatures with adjustable stroke width and color.",
-          "image": "signseal/screenshot-04.png"
+          "image": "signseal/screenshot-04.webp"
         },
         {
           "title": "Place It Precisely",
           "description": "Tap to insert, drag to move, and resize your signature anywhere on the page.",
-          "image": "signseal/screenshot-03.png"
+          "image": "signseal/screenshot-03.webp"
         },
         {
           "title": "Export & Share",
           "description": "Send signed PDFs with the native share sheet when your document is ready.",
-          "image": "signseal/screenshot-05.png"
+          "image": "signseal/screenshot-05.webp"
         }
       ],
       "steps": [
@@ -260,11 +260,11 @@
         }
       ],
       "screenshots": [
-        "../../assets/signseal/screenshot-01.png",
-        "../../assets/signseal/screenshot-02.png",
-        "../../assets/signseal/screenshot-03.png",
-        "../../assets/signseal/screenshot-04.png",
-        "../../assets/signseal/screenshot-05.png"
+        "../../assets/signseal/screenshot-01.webp",
+        "../../assets/signseal/screenshot-02.webp",
+        "../../assets/signseal/screenshot-03.webp",
+        "../../assets/signseal/screenshot-04.webp",
+        "../../assets/signseal/screenshot-05.webp"
       ],
       "section_copy": {
         "screenshots_title": "See SignSeal in Action",
