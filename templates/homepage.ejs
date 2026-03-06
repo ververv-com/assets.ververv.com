@@ -59,6 +59,26 @@
         }
         <% } %>
 
+        <% if (homepage.feature_image_max_width) { %>
+        :root {
+            --feature-image-max-width: <%= homepage.feature_image_max_width %>;
+        }
+        <% } else { %>
+        :root {
+            --feature-image-max-width: 580px;
+        }
+        <% } %>
+
+        <% if (homepage.feature_image_max_height) { %>
+        :root {
+            --feature-image-max-height: <%= homepage.feature_image_max_height %>;
+        }
+        <% } else { %>
+        :root {
+            --feature-image-max-height: none;
+        }
+        <% } %>
+
         * {
             margin: 0;
             padding: 0;
@@ -416,7 +436,7 @@
         }
 
         .feature-visual::before {
-            content: '';
+            content: none;
             position: absolute;
             width: 120%;
             height: 120%;
@@ -429,14 +449,14 @@
 
         .feature-img {
             width: 100%;
-            max-width: 580px;
-            border-radius: var(--radius-xl);
-            box-shadow: var(--shadow-xl);
+            max-width: var(--feature-image-max-width);
+            max-height: var(--feature-image-max-height);
+            object-fit: contain;
+            border-radius: 0;
+            box-shadow: none;
             position: relative;
             z-index: 1;
-            background: white;
             transition: transform 0.5s ease;
-            border: 1px solid rgba(0,0,0,0.05);
         }
         
         .feature-block:hover .feature-img {
@@ -677,7 +697,7 @@
     </style>
 </head>
 <body>
-    <% 
+    <%
         let mailto = `mailto:${email}`;
         if (homepage.support_email_subject || homepage.support_email_body) {
             const params = [];
@@ -685,6 +705,14 @@
             if (homepage.support_email_body) params.push(`body=${encodeURIComponent(homepage.support_email_body)}`);
             mailto += `?${params.join('&')}`;
         }
+
+        const sectionCopy = homepage.section_copy || {};
+        const screenshotsTitle = sectionCopy.screenshots_title || 'Interface';
+        const stepsTitle = sectionCopy.steps_title || 'How It Works';
+        const stepsSubtitle = sectionCopy.steps_subtitle || 'Simple steps to get started.';
+        const supportTitle = sectionCopy.support_title || 'Support & FAQ';
+        const supportSubtitle = sectionCopy.support_subtitle || 'Common questions and answers.';
+        const downloadLabel = sectionCopy.download_label || 'Download';
     %>
 
     <nav class="navbar">
@@ -696,7 +724,7 @@
             <div class="nav-actions">
                 <a href="#features" class="nav-link">Features</a>
                 <a href="#support" class="nav-link">Support</a>
-                <a href="<%= homepage.app_store_url %>" class="btn-primary">Download</a>
+                <a href="<%= homepage.app_store_url %>" class="btn-primary"><%= downloadLabel %></a>
             </div>
         </div>
     </nav>
@@ -720,7 +748,7 @@
     <section class="screenshots reveal">
         <div class="container">
             <div class="text-center" style="margin-bottom: 60px;">
-                <h2 class="section-title">Interface</h2>
+                <h2 class="section-title"><%= screenshotsTitle %></h2>
             </div>
         </div>
         <div class="screenshots-track">
@@ -754,8 +782,8 @@
     <section class="steps-section section-padding">
         <div class="container">
             <div class="section-header reveal">
-                <h2 class="section-title">How It Works</h2>
-                <p class="section-subtitle">Simple steps to clean up your gallery.</p>
+                <h2 class="section-title"><%= stepsTitle %></h2>
+                <p class="section-subtitle"><%= stepsSubtitle %></p>
             </div>
             <div class="steps-grid reveal">
                 <% homepage.steps.forEach(function(step) { %>
@@ -773,8 +801,8 @@
     <section id="support" class="faq-section section-padding">
         <div class="container">
             <div class="section-header reveal">
-                <h2 class="section-title">Support & FAQ</h2>
-                <p class="section-subtitle">Common questions and answers.</p>
+                <h2 class="section-title"><%= supportTitle %></h2>
+                <p class="section-subtitle"><%= supportSubtitle %></p>
             </div>
             <div class="faq-grid reveal">
                 <% homepage.faqs.forEach(function(faq) { %>

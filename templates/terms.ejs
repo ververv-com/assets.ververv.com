@@ -37,7 +37,7 @@
 <p>Welcome to <span class="app-name"><%= name %></span> ("the Service"). By accessing or using the Service, you agree to be bound by these Terms of Service ("Terms"). Please read these Terms carefully before using the Service.</p>
 
 <h2>Service Description</h2>
-<p>We provide a mobile application that helps users manage and organize their digital content. The Service may include features such as photo management, storage optimization, and content organization.</p>
+<p><%= ((typeof legal !== 'undefined' && legal && legal.terms && legal.terms.service_description) || 'We provide a mobile application that helps users manage and organize their digital content. The Service may include features such as productivity tools, content management, and task-specific workflows.') %></p>
 
 <h2>User Obligations</h2>
 <p>By using our Service, you agree to:</p>

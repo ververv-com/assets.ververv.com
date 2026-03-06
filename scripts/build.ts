@@ -14,9 +14,32 @@ interface Feature {
     image: string;
 }
 
+interface Step {
+    icon: string;
+    title: string;
+    description: string;
+}
+
 interface FAQ {
     question: string;
     answer: string;
+}
+
+interface HomepageSectionCopy {
+    screenshots_title?: string;
+    steps_title?: string;
+    steps_subtitle?: string;
+    support_title?: string;
+    support_subtitle?: string;
+    download_label?: string;
+}
+
+interface TermsConfig {
+    service_description?: string;
+}
+
+interface LegalConfig {
+    terms?: TermsConfig;
 }
 
 interface HomepageConfig {
@@ -26,6 +49,11 @@ interface HomepageConfig {
     app_store_url: string;
     features: Feature[];
     faqs: FAQ[];
+    steps?: Step[];
+    screenshots?: string[];
+    section_copy?: HomepageSectionCopy;
+    feature_image_max_width?: string;
+    feature_image_max_height?: string;
     support_email_subject?: string;
     support_email_body?: string;
     theme_color?: string;
@@ -42,6 +70,7 @@ interface AppConfig {
     third_party_services: ThirdPartyService[];
     pages: string[];
     homepage?: HomepageConfig;
+    legal?: LegalConfig;
 }
 
 // 路径配置

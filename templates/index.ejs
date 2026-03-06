@@ -62,6 +62,9 @@
     <div class="app">
         <h3><%= app.name %></h3>
         <div class="app-links">
+            <% if (app.pages.includes('homepage')) { %>
+            <a href="/<%= app.key %>/home/">Home</a>
+            <% } %>
             <% if (app.pages.includes('privacy')) { %>
             <a href="/<%= app.key %>/privacy/">Privacy Policy</a>
             <% } %>

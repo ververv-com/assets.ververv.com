@@ -198,5 +198,116 @@
       "company_name": "Keli Inc.",
       "company_url": "aloneguard.com"
     }
+  },
+  {
+    "key": "signseal",
+    "name": "SignSeal",
+    "email": "support@signseal.ververv.com",
+    "updated_date": "March 6, 2026",
+    "has_iap": true,
+    "third_party_services": [],
+    "pages": ["homepage", "privacy", "terms"],
+    "homepage": {
+      "slogan": "Sign & Fill PDF in Minutes",
+      "sub_slogan": "Import documents, create signatures, and export polished PDFs from your iPhone.",
+      "app_icon": "signseal/icon.png",
+      "app_store_url": "#",
+      "theme_color": "#2563EB",
+      "feature_image_max_width": "420px",
+      "feature_image_max_height": "560px",
+      "features": [
+        {
+          "title": "Import PDF Fast",
+          "description": "Add documents from Files or scan paper pages into a clean PDF workflow.",
+          "image": "signseal/screenshot-01.png"
+        },
+        {
+          "title": "Create Your Signature",
+          "description": "Draw reusable signatures with adjustable stroke width and color.",
+          "image": "signseal/screenshot-04.png"
+        },
+        {
+          "title": "Place It Precisely",
+          "description": "Tap to insert, drag to move, and resize your signature anywhere on the page.",
+          "image": "signseal/screenshot-03.png"
+        },
+        {
+          "title": "Export & Share",
+          "description": "Send signed PDFs with the native share sheet when your document is ready.",
+          "image": "signseal/screenshot-05.png"
+        }
+      ],
+      "steps": [
+        {
+          "icon": "📄",
+          "title": "Add Document",
+          "description": "Import a PDF from Files or scan a paper document."
+        },
+        {
+          "icon": "✍️",
+          "title": "Create Signature",
+          "description": "Draw and save one or more signatures for reuse."
+        },
+        {
+          "icon": "📍",
+          "title": "Place on PDF",
+          "description": "Tap the page to insert, then move, resize, or recolor it."
+        },
+        {
+          "icon": "📤",
+          "title": "Export & Share",
+          "description": "Save the signed PDF and share it anywhere with one tap."
+        }
+      ],
+      "screenshots": [
+        "../../assets/signseal/screenshot-01.png",
+        "../../assets/signseal/screenshot-02.png",
+        "../../assets/signseal/screenshot-03.png",
+        "../../assets/signseal/screenshot-04.png",
+        "../../assets/signseal/screenshot-05.png"
+      ],
+      "section_copy": {
+        "screenshots_title": "See SignSeal in Action",
+        "steps_title": "How It Works",
+        "steps_subtitle": "Import a PDF, add your signature, and export in minutes.",
+        "support_title": "Support & FAQ",
+        "support_subtitle": "Answers for signing, exporting, and subscription questions."
+      },
+      "faqs": [
+        {
+          "question": "Can I sign PDFs without printing them?",
+          "answer": "Yes. SignSeal lets you import a PDF, place your handwritten signature directly on the document, and export the signed file digitally."
+        },
+        {
+          "question": "Does SignSeal store my documents on a server?",
+          "answer": "No. Your documents and signatures stay on your device unless you choose to share an exported PDF yourself."
+        },
+        {
+          "question": "Can I save more than one signature?",
+          "answer": "Yes. You can create and keep multiple signatures, then reuse or delete them at any time from the signing toolbar."
+        },
+        {
+          "question": "How do I export a signed PDF?",
+          "answer": "Open your document, tap \"Send document,\" and SignSeal will prepare the signed PDF for sharing through the iOS share sheet."
+        },
+        {
+          "question": "How much does SignSeal cost?",
+          "answer": "You can import documents, create signatures, and place signatures for free. Exporting signed PDFs requires a subscription or lifetime purchase."
+        },
+        {
+          "question": "How do I restore my purchase?",
+          "answer": "Open Settings in SignSeal and tap \"Restore Purchases\" to sync your subscription or lifetime unlock."
+        }
+      ],
+      "support_email_subject": "SignSeal Support Request",
+      "support_email_body": "Device: iPhone\niOS Version:\nApp Version: 1.0\n\nPlease describe your issue here:",
+      "company_name": "Keli Inc.",
+      "company_url": "ververv.com"
+    },
+    "legal": {
+      "terms": {
+        "service_description": "We provide a mobile application that helps users import PDF documents, create handwritten signatures, place signatures on documents, and export signed PDFs for sharing."
+      }
+    }
   }
 ]
