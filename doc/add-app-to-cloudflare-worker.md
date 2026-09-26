@@ -66,7 +66,7 @@ static/common/
   "key": "newapp",
   "domain": "newapp.ververv.com",
   "name": "New App",
-  "email": "support@newapp.ververv.com",
+  "email": "support@ververv.com",
   "updated_date": "September 26, 2026",
   "has_iap": false,
   "third_party_services": [],
