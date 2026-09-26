@@ -78,6 +78,7 @@ interface HomepageConfig {
 
 interface AppConfig {
     key: string;
+    domain?: string;
     name: string;
     email: string;
     updated_date: string;
@@ -191,12 +192,15 @@ async function build() {
             }
 
             // 生成 config.json
+            const publicBaseUrl = app.domain
+                ? `https://${app.domain}`
+                : `https://s.ververv.com/${app.key}`;
             const appConfig = {
                 app_name: app.name,
                 contact: app.email,
-                privacy_policy_url: `https://s.ververv.com/${app.key}/privacy/`,
+                privacy_policy_url: `${publicBaseUrl}/privacy/`,
                 terms_of_use_url: app.legal?.terms?.url
-                    || `https://s.ververv.com/${app.key}/terms/`
+                    || `${publicBaseUrl}/terms/`
             };
             await fs.writeFile(
                 path.join(appDir, 'config.json'),
@@ -214,10 +218,12 @@ async function build() {
             console.log('\n✓ 首页 index.html 已生成');
         }
 
-        // 6. 生成 CNAME 文件（GitHub Pages 自定义域名）
-        const customDomain = 's.ververv.com';
-        await fs.writeFile(path.join(PATHS.dist, 'CNAME'), customDomain);
-        console.log(`✓ CNAME 文件已生成: ${customDomain}`);
+        // 6. GitHub Pages 构建保留 CNAME；Cloudflare Static Assets 不需要。
+        if (process.env.DEPLOY_TARGET !== 'cloudflare') {
+            const customDomain = 's.ververv.com';
+            await fs.writeFile(path.join(PATHS.dist, 'CNAME'), customDomain);
+            console.log(`✓ CNAME 文件已生成: ${customDomain}`);
+        }
 
         console.log('\n✅ 构建成功!');
         console.log(`📁 输出目录: ${PATHS.dist}`);

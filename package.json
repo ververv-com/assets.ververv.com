@@ -6,6 +6,11 @@
   "scripts": {
     "dev": "ts-node src/index.ts",
     "build": "ts-node scripts/build.ts",
+    "typecheck": "tsc --noEmit",
+    "cf:build": "DEPLOY_TARGET=cloudflare pnpm build",
+    "cf:dev": "pnpm cf:build && wrangler dev",
+    "cf:whoami": "wrangler whoami",
+    "cf:deploy": "pnpm cf:build && wrangler deploy",
     "preview": "python3 -m http.server 3010 --directory dist",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -13,11 +18,13 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@cloudflare/workers-types": "^5.20260926.1",
     "@types/ejs": "^3.1.5",
     "@types/fs-extra": "^11.0.4",
     "@types/node": "^24.6.2",
     "ts-node": "^10.9.2",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "wrangler": "^4.141.0"
   },
   "dependencies": {
     "ejs": "^3.1.9",
