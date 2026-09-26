@@ -70,6 +70,8 @@
             <% } %>
             <% if (app.pages.includes('terms')) { %>
             <a href="/<%= app.key %>/terms/">Terms of Service</a>
+            <% } else if (app.legal && app.legal.terms && app.legal.terms.url) { %>
+            <a href="<%= app.legal.terms.url %>" target="_blank" rel="noopener noreferrer">Terms of Service</a>
             <% } %>
         </div>
     </div>

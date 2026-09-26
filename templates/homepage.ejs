@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= name %> - <%= homepage.slogan %></title>
     <meta name="description" content="<%= homepage.sub_slogan %>">
+    <link rel="icon" href="../../assets/<%= homepage.app_icon %>">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -55,7 +56,9 @@
             --primary: <%= homepage.theme_color %>;
             --primary-rgb: <%= helpers.hexToRgb(homepage.theme_color) %>;
             --color-teal: <%= homepage.theme_color %>; /* Fallback for where teal is used */
-            --brand-gradient: linear-gradient(135deg, <%= homepage.theme_color %> 0%, <%= homepage.theme_color %> 50%, <%= homepage.theme_color %> 100%); 
+            --color-purple: <%= homepage.theme_secondary_color || homepage.theme_color %>;
+            --color-yellow: <%= homepage.theme_accent_color || homepage.theme_secondary_color || homepage.theme_color %>;
+            --brand-gradient: linear-gradient(135deg, <%= homepage.theme_color %> 0%, <%= homepage.theme_secondary_color || homepage.theme_color %> 58%, <%= homepage.theme_accent_color || homepage.theme_secondary_color || homepage.theme_color %> 100%);
         }
         <% } %>
 
@@ -713,6 +716,8 @@
         const supportTitle = sectionCopy.support_title || 'Support & FAQ';
         const supportSubtitle = sectionCopy.support_subtitle || 'Common questions and answers.';
         const downloadLabel = sectionCopy.download_label || 'Download';
+        const configuredTermsUrl = typeof legal !== 'undefined' && legal && legal.terms && legal.terms.url;
+        const termsUrl = configuredTermsUrl || '../terms/';
     %>
 
     <nav class="navbar">
@@ -835,8 +840,8 @@
                 </div>
                 <div class="footer-nav">
                     <a href="../privacy/">Privacy</a>
-                    <% if (pages.includes('terms')) { %>
-                    <a href="../terms/">Terms</a>
+                    <% if (pages.includes('terms') || configuredTermsUrl) { %>
+                    <a href="<%= termsUrl %>"<% if (configuredTermsUrl) { %> target="_blank" rel="noopener noreferrer"<% } %>>Terms</a>
                     <% } %>
                     <a href="<%= mailto %>">Support</a>
                 </div>

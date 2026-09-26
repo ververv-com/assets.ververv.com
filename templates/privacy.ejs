@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= name %> - Privacy Policy</title>
+    <% if (typeof homepage !== 'undefined' && homepage && homepage.app_icon) { %>
+    <link rel="icon" href="../../assets/<%= homepage.app_icon %>">
+    <% } %>
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -33,6 +36,48 @@
 <h1>Privacy Policy</h1>
 <p class="meta">Last Updated: <%= updated_date %></p>
 
+<%
+const privacyConfig = typeof legal !== 'undefined' && legal && legal.privacy;
+const configuredTermsUrl = typeof legal !== 'undefined' && legal && legal.terms && legal.terms.url;
+const termsUrl = configuredTermsUrl || '../terms/';
+%>
+
+<% if (privacyConfig && privacyConfig.sections && privacyConfig.sections.length > 0) { %>
+<p><%= privacyConfig.intro || `This Privacy Policy explains how ${name} handles information.` %></p>
+
+<% privacyConfig.sections.forEach(section => { %>
+<h2><%= section.title %></h2>
+<% if (section.paragraphs) { section.paragraphs.forEach(paragraph => { %>
+<p><%= paragraph %></p>
+<% }); } %>
+<% if (section.items && section.items.length > 0) { %>
+<ul>
+    <% section.items.forEach(item => { %>
+    <li><%= item %></li>
+    <% }); %>
+</ul>
+<% } %>
+<% }); %>
+
+<% if (third_party_services && third_party_services.length > 0) { %>
+<h2>Service Providers</h2>
+<p>These providers process limited information as described above and under their own privacy policies:</p>
+<ul>
+    <% third_party_services.forEach(service => { %>
+    <li>
+        <% if (service.url) { %>
+        <a href="<%= service.url %>" target="_blank" rel="noopener noreferrer"><%= service.name %></a>
+        <% } else { %>
+        <%= service.name %>
+        <% } %>
+    </li>
+    <% }); %>
+</ul>
+<% } %>
+
+<h2>Contact</h2>
+<p>For questions about this Privacy Policy, contact us at: <a href="mailto:<%= email %>"><%= email %></a></p>
+<% } else { %>
 <p>This Privacy Policy explains how <span class="app-name"><%= name %></span> ("we", "our", or "the App") handles your information. By using the App, you agree to the practices described below.</p>
 
 <h2>What We Collect</h2>
@@ -90,11 +135,14 @@
 
 <h2>Contact</h2>
 <p>For questions, concerns, or requests regarding this Privacy Policy or your personal data, please contact us at: <a href="mailto:<%= email %>"><%= email %></a></p>
+<% } %>
 
 <footer>
     <a href="../home/">Home</a>
     <a href="../privacy/">Privacy Policy</a>
-    <a href="../terms/">Terms of Service</a>
+    <% if (pages.includes('terms') || configuredTermsUrl) { %>
+    <a href="<%= termsUrl %>"<% if (configuredTermsUrl) { %> target="_blank" rel="noopener noreferrer"<% } %>>Terms of Service</a>
+    <% } %>
 </footer>
 
 </body>

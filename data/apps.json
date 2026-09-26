@@ -309,5 +309,194 @@
         "service_description": "We provide a mobile application that helps users import PDF documents, create handwritten signatures, place signatures on documents, and export signed PDFs for sharing."
       }
     }
+  },
+  {
+    "key": "peviai",
+    "name": "Pevi AI",
+    "email": "support@peviai.ververv.com",
+    "updated_date": "September 26, 2026",
+    "has_iap": true,
+    "third_party_services": [
+      {
+        "name": "Apple Privacy Policy",
+        "url": "https://www.apple.com/legal/privacy/"
+      },
+      {
+        "name": "RevenueCat Privacy Policy",
+        "url": "https://www.revenuecat.com/privacy/"
+      }
+    ],
+    "pages": ["homepage", "privacy"],
+    "homepage": {
+      "slogan": "Private AI. No Account Required.",
+      "sub_slogan": "Ask, write, reason, and understand photos with an AI assistant designed around your privacy.",
+      "app_icon": "peviai/icon.png",
+      "app_store_url": "https://apps.apple.com/app/id6815242871",
+      "theme_color": "#385574",
+      "theme_secondary_color": "#BFE1D7",
+      "theme_accent_color": "#F0C494",
+      "feature_image_max_width": "420px",
+      "feature_image_max_height": "620px",
+      "features": [
+        {
+          "title": "Ask, Write & Explore",
+          "description": "Draft emails, rewrite paragraphs, translate text, compare ideas, and keep asking follow-up questions in one conversation.",
+          "image": "peviai/screenshot-01.webp"
+        },
+        {
+          "title": "Think Harder",
+          "description": "Use deeper reasoning for complex questions, plans, and decisions when you need more than a quick answer.",
+          "image": "peviai/screenshot-02.webp"
+        },
+        {
+          "title": "Understand Photos & Files",
+          "description": "Ask about photos and screenshots, compare several images, or discuss TXT and Markdown files with Pevi Pro.",
+          "image": "peviai/screenshot-03.webp"
+        },
+        {
+          "title": "Private by Design",
+          "description": "No Pevi account and no developer-operated chat server. Your history stays on your iPhone, while AI requests are processed by Apple Private Cloud Compute.",
+          "image": "peviai/screenshot-04.webp"
+        }
+      ],
+      "steps": [
+        {
+          "icon": "01",
+          "title": "Open and Ask",
+          "description": "Start a conversation immediately without creating an account."
+        },
+        {
+          "icon": "02",
+          "title": "Choose the Depth",
+          "description": "Use regular chat or select Think harder for deeper reasoning."
+        },
+        {
+          "icon": "03",
+          "title": "Add Context",
+          "description": "Attach selected photos, screenshots, TXT, or Markdown files when needed."
+        },
+        {
+          "icon": "04",
+          "title": "Keep the Conversation",
+          "description": "Continue with follow-up questions and return to local history later."
+        }
+      ],
+      "screenshots": [
+        "../../assets/peviai/screenshot-01.webp",
+        "../../assets/peviai/screenshot-02.webp",
+        "../../assets/peviai/screenshot-03.webp",
+        "../../assets/peviai/screenshot-04.webp",
+        "../../assets/peviai/screenshot-05.webp"
+      ],
+      "section_copy": {
+        "screenshots_title": "Pevi AI in Action",
+        "steps_title": "Start in Seconds",
+        "steps_subtitle": "No sign-up, no account, and no complicated setup.",
+        "support_title": "Support & FAQ",
+        "support_subtitle": "Clear answers about privacy, Pro access, and Apple service requirements.",
+        "download_label": "View on App Store"
+      },
+      "faqs": [
+        {
+          "question": "Do I need to create an account?",
+          "answer": "No. Pevi AI does not require an app account, email address, or sign-in. You can open the app and start a conversation."
+        },
+        {
+          "question": "Where are my conversations stored?",
+          "answer": "Your conversation history and attachments are stored locally on your iPhone. They are not synced between devices, and restoring a purchase does not restore your history."
+        },
+        {
+          "question": "Is Pevi AI completely offline?",
+          "answer": "No. Your history is stored locally, but AI requests, necessary conversation context, and selected attachments are sent to Apple Private Cloud Compute for processing. An internet connection is required."
+        },
+        {
+          "question": "What does Pevi Pro unlock?",
+          "answer": "Pevi Pro unlocks Think harder, photo and screenshot analysis, multi-image comparison, and TXT or Markdown file conversations. It does not increase Apple service limits."
+        },
+        {
+          "question": "Does RevenueCat receive my conversations?",
+          "answer": "No. RevenueCat helps verify subscription access and may process transaction metadata and an anonymous app user identifier. Pevi AI does not send your conversations or attachments to RevenueCat."
+        },
+        {
+          "question": "What devices are supported?",
+          "answer": "AI features require iOS 27 on a compatible iPhone with Apple Intelligence enabled and Apple Private Cloud Compute available. Service availability and limits are controlled by Apple."
+        },
+        {
+          "question": "How do I restore or manage my subscription?",
+          "answer": "Open Settings in Pevi AI to restore purchases or open the system subscription management screen. Restoring Pro access does not sync local chat history."
+        }
+      ],
+      "support_email_subject": "Pevi AI Support Request",
+      "support_email_body": "Device: iPhone\niOS Version:\nApp Version: 1.0\n\nPlease describe your issue here:",
+      "company_name": "Ververv",
+      "company_url": "ververv.com"
+    },
+    "legal": {
+      "privacy": {
+        "intro": "Pevi AI is designed to work without a Pevi account or a developer-operated chat backend. This policy explains what stays on your device, what is sent to Apple for AI processing, and what subscription providers process.",
+        "sections": [
+          {
+            "title": "Information Used for AI Requests",
+            "paragraphs": [
+              "When you send a message, Pevi AI sends your prompt, the conversation context needed to answer it, and any photos or text files you selected to Apple Private Cloud Compute for processing. Pevi AI does not operate its own chat server.",
+              "AI features require an internet connection and remain subject to Apple service availability, supported device and language requirements, and service limits. A Pro subscription does not increase those limits."
+            ]
+          },
+          {
+            "title": "Information Stored on Your Device",
+            "paragraphs": [
+              "Conversation history, selected attachments, and recovery checkpoints are stored locally on your iPhone using platform data protection. Pevi AI does not provide developer-operated cloud sync for this content.",
+              "Local history may be lost if you delete the app, erase or lose the device, or otherwise remove its local data. Restoring a purchase restores eligible Pro access, not your conversations."
+            ]
+          },
+          {
+            "title": "Photos, Files, and Permissions",
+            "items": [
+              "Pevi AI accesses only the photos and supported text files you actively select.",
+              "The app does not request camera, microphone, location, or push notification access for its current features.",
+              "Selected attachments are used to answer your request and may be stored with the local conversation until you delete it."
+            ]
+          },
+          {
+            "title": "Purchases and Subscriptions",
+            "paragraphs": [
+              "Apple and RevenueCat process purchase and subscription information, including transaction metadata and an anonymous app user identifier, to verify Pro access. Pevi AI does not send your conversations, prompts, photos, or text attachments to RevenueCat.",
+              "Purchase records are handled under Apple and RevenueCat policies. Pevi AI does not receive your full payment card details."
+            ]
+          },
+          {
+            "title": "Diagnostics and Support",
+            "paragraphs": [
+              "Pevi AI logs technical state needed to operate and diagnose the app, but its application logs are designed not to include conversation text, original images, file contents, or complete AI tool parameters.",
+              "If you contact support, we receive the information you choose to include in your email. Do not include sensitive conversation content unless it is necessary for your request."
+            ]
+          },
+          {
+            "title": "Your Choices and Data Deletion",
+            "items": [
+              "Delete an individual conversation and its locally stored attachments from the app.",
+              "Delete all local conversation history from Settings.",
+              "Manage or cancel subscriptions through your Apple Account settings.",
+              "Contact support with privacy questions using the address below."
+            ]
+          },
+          {
+            "title": "Children's Privacy",
+            "paragraphs": [
+              "Pevi AI is not directed to children under 13. We do not knowingly collect personal information from children through an app account because Pevi AI does not offer app accounts."
+            ]
+          },
+          {
+            "title": "Policy Updates",
+            "paragraphs": [
+              "We may update this Privacy Policy as Pevi AI changes. The Last Updated date on this page identifies the current version."
+            ]
+          }
+        ]
+      },
+      "terms": {
+        "url": "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/"
+      }
+    }
   }
 ]

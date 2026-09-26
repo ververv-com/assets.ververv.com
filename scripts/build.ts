@@ -34,11 +34,24 @@ interface HomepageSectionCopy {
     download_label?: string;
 }
 
+interface PrivacySection {
+    title: string;
+    paragraphs?: string[];
+    items?: string[];
+}
+
+interface PrivacyConfig {
+    intro?: string;
+    sections?: PrivacySection[];
+}
+
 interface TermsConfig {
     service_description?: string;
+    url?: string;
 }
 
 interface LegalConfig {
+    privacy?: PrivacyConfig;
     terms?: TermsConfig;
 }
 
@@ -57,6 +70,8 @@ interface HomepageConfig {
     support_email_subject?: string;
     support_email_body?: string;
     theme_color?: string;
+    theme_secondary_color?: string;
+    theme_accent_color?: string;
     company_name?: string;
     company_url?: string;
 }
@@ -179,7 +194,9 @@ async function build() {
             const appConfig = {
                 app_name: app.name,
                 contact: app.email,
-                privacy_policy_url: `https://s.ververv.com/${app.key}/privacy/`
+                privacy_policy_url: `https://s.ververv.com/${app.key}/privacy/`,
+                terms_of_use_url: app.legal?.terms?.url
+                    || `https://s.ververv.com/${app.key}/terms/`
             };
             await fs.writeFile(
                 path.join(appDir, 'config.json'),
