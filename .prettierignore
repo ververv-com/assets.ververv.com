@@ -1,0 +1,7 @@
+dist
+node_modules
+static
+templates
+data/apps.json
+change
+AGENTS.md

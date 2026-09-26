@@ -1,18 +1,29 @@
 {
   "name": "ververv-assets",
   "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@10.25.0",
+  "engines": {
+    "node": ">=20"
+  },
   "description": "Ververv Apps 静态资源管理器",
-  "main": "index.js",
   "scripts": {
-    "dev": "ts-node src/index.ts",
-    "build": "ts-node scripts/build.ts",
+    "dev": "pnpm cf:dev",
+    "build": "tsx scripts/build.ts",
     "typecheck": "tsc --noEmit",
+    "check": "pnpm typecheck && pnpm test && pnpm cf:types:check && pnpm cf:build && pnpm cf:dry-run",
+    "format": "prettier --write \"{scripts,src,tests,worker}/**/*.ts\" \"*.{json,jsonc}\" README.md \"doc/**/*.md\" \".github/**/*.yml\"",
+    "format:check": "prettier --check \"{scripts,src,tests,worker}/**/*.ts\" \"*.{json,jsonc}\" README.md \"doc/**/*.md\" \".github/**/*.yml\"",
+    "test": "tsx --test tests/*.test.ts",
     "cf:build": "DEPLOY_TARGET=cloudflare pnpm build",
     "cf:dev": "pnpm cf:build && wrangler dev",
+    "cf:dry-run": "wrangler deploy --dry-run",
+    "cf:types": "wrangler types worker-configuration.d.ts --env-interface CloudflareEnv --include-runtime false",
+    "cf:types:check": "pnpm cf:types --check",
     "cf:whoami": "wrangler whoami",
     "cf:deploy": "pnpm cf:build && wrangler deploy",
-    "preview": "python3 -m http.server 3010 --directory dist",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "preview": "python3 -m http.server 3010 --directory dist"
   },
   "keywords": [],
   "author": "",
@@ -20,14 +31,14 @@
   "devDependencies": {
     "@cloudflare/workers-types": "^5.20260926.1",
     "@types/ejs": "^3.1.5",
-    "@types/fs-extra": "^11.0.4",
     "@types/node": "^24.6.2",
-    "ts-node": "^10.9.2",
+    "prettier": "^3.9.9",
+    "tsx": "^4.23.15",
     "typescript": "^5.9.3",
     "wrangler": "^4.141.0"
   },
   "dependencies": {
     "ejs": "^3.1.9",
-    "fs-extra": "^11.1.1"
+    "zod": "^4.6.5"
   }
 }

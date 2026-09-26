@@ -97,39 +97,19 @@ static/common/
 - `homepage.app_icon` 和 `features[].image` 相对于 `static/`，例如 `newapp/icon.png`。
 - `homepage.screenshots[]` 会原样写入 HTML，应使用 `../../assets/newapp/screenshot-01.webp` 形式，与现有 App 保持一致。
 
-## 3. 添加 Worker 域名映射
+## 3. 确认 Worker 自动映射
 
-编辑 `worker/index.ts`，在 `APP_BY_HOST` 中保留现有映射并新增：
+Worker 会从 `data/apps.json` 自动读取所有带 `domain` 的 App，并生成域名到 `key` 的映射。正常新增 App 时不需要修改 `worker/index.ts` 或维护第二份域名表。
 
-```ts
-const APP_BY_HOST: Readonly<Record<string, string>> = {
-    'peviai.ververv.com': 'peviai',
-    'newapp.ververv.com': 'newapp'
-};
+资源隔离也会自动使用当前域名对应的 `appKey`：
+
+```text
+newapp.ververv.com 可读取 /assets/common/*
+newapp.ververv.com 可读取 /assets/newapp/*
+newapp.ververv.com 不可读取 /assets/peviai/*
 ```
 
-当前只有 Pevi AI 时，`PUBLIC_ASSET_PREFIXES` 是单 App 白名单。增加第二个 App 时，不要简单地把 `/assets/newapp/` 加入全局列表，否则两个域名将能互相读取对方的资源。
-
-删除 `PUBLIC_ASSET_PREFIXES`，改为根据当前 `appKey` 判断：
-
-```ts
-function isAllowedAsset(pathname: string, appKey: string): boolean {
-    return pathname.startsWith('/assets/common/')
-        || pathname.startsWith(`/assets/${appKey}/`);
-}
-```
-
-并把 `fetch` 中的资源判断改为：
-
-```ts
-if (isAllowedAsset(requestUrl.pathname, appKey)) {
-    assetPath = requestUrl.pathname;
-} else {
-    // 保留现有页面路由逻辑
-}
-```
-
-不要开放整个 `/assets/`。动态使用 `appKey` 可以保证 `newapp.ververv.com` 只能读取 `assets/newapp/` 和 `assets/common/`。
+运行 `pnpm test` 会验证 Host 映射和跨 App 资源隔离。
 
 ### 本地 Terms 页面
 
@@ -272,14 +252,14 @@ curl -I https://newapp.ververv.com/newapp/home/
 
 预期状态码：
 
-| URL | 状态码 |
-| --- | --- |
-| `/` | 308 |
-| `/home/` | 200 |
-| `/privacy/` | 200 |
-| `/config.json` | 200 |
-| `/assets/newapp/icon.png` | 200 |
-| `/newapp/home/` | 404 |
+| URL                       | 状态码 |
+| ------------------------- | ------ |
+| `/`                       | 308    |
+| `/home/`                  | 200    |
+| `/privacy/`               | 200    |
+| `/config.json`            | 200    |
+| `/assets/newapp/icon.png` | 200    |
+| `/newapp/home/`           | 404    |
 
 如果本机代理导致 TLS 或 Fake IP 错误，使用公共 DNS 检查：
 
@@ -300,9 +280,9 @@ curl --noproxy '*' \
 如果新 App 上线失败：
 
 1. 从 `wrangler.jsonc` 的 `routes` 删除新域名，但保留所有旧域名。
-2. 从 `APP_BY_HOST` 删除新 App 项；动态资源判断不需要修改。
+2. 从 `data/apps.json` 删除新 App 的 `domain` 或移除新 App 配置。
 3. 重新执行 `pnpm cf:deploy`。
-4. 回滚或修复 `data/apps.json` 和静态资源后再重新部署。
+4. 回滚或修复静态资源后再重新部署。
 
 不要直接删除整个 Worker，因为所有 App 共用 `ververv-app-sites`。
 
@@ -310,8 +290,7 @@ curl --noproxy '*' \
 
 - [ ] `static/newapp/` 资源已准备
 - [ ] `data/apps.json` 已增加 `key` 和 `domain`
-- [ ] `APP_BY_HOST` 已增加域名映射
-- [ ] 静态资源判断已改为只允许 `common` 和当前 `appKey`
+- [ ] `pnpm test` 已验证自动 Host 映射和资源隔离
 - [ ] 需要本地条款时已开放 `/terms/`
 - [ ] `wrangler.jsonc` 已保留旧域名并增加新域名
 - [ ] `pnpm typecheck` 通过
