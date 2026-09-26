@@ -356,7 +356,7 @@
         {
           "title": "Private by Design",
           "description": "No Pevi account and no developer-operated chat server. Your history stays on your iPhone, while AI requests are processed by Apple Private Cloud Compute.",
-          "image": "peviai/screenshot-04.webp"
+          "image": "peviai/screenshot-06.webp"
         }
       ],
       "steps": [
@@ -386,7 +386,8 @@
         "../../assets/peviai/screenshot-02.webp",
         "../../assets/peviai/screenshot-03.webp",
         "../../assets/peviai/screenshot-04.webp",
-        "../../assets/peviai/screenshot-05.webp"
+        "../../assets/peviai/screenshot-05.webp",
+        "../../assets/peviai/screenshot-06.webp"
       ],
       "section_copy": {
         "screenshots_title": "Pevi AI in Action",
