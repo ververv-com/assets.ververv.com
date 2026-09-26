@@ -20,6 +20,11 @@ const CANONICAL_PATHS: Readonly<Record<string, string>> = {
     '/privacy': '/privacy/'
 };
 
+const PUBLIC_ASSET_PREFIXES = [
+    '/assets/common/',
+    '/assets/peviai/'
+] as const;
+
 function redirect(requestUrl: URL, pathname: string): Response {
     const target = new URL(requestUrl);
     target.pathname = pathname;
@@ -57,7 +62,7 @@ export default {
         }
 
         let assetPath: string;
-        if (requestUrl.pathname.startsWith('/assets/')) {
+        if (PUBLIC_ASSET_PREFIXES.some(prefix => requestUrl.pathname.startsWith(prefix))) {
             assetPath = requestUrl.pathname;
         } else {
             const pageAsset = PAGE_ASSETS[requestUrl.pathname];

@@ -123,7 +123,9 @@ async function build() {
 
         // 2. 复制静态资源
         if (await fs.pathExists(PATHS.static)) {
-            await fs.copy(PATHS.static, path.join(PATHS.dist, 'assets'));
+            await fs.copy(PATHS.static, path.join(PATHS.dist, 'assets'), {
+                filter: source => path.basename(source) !== '.DS_Store'
+            });
             console.log('📦 已复制静态资源');
         }
 
