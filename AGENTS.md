@@ -52,6 +52,9 @@ wrangler.jsonc            Worker、Static Assets 和域名配置
 ## 开发规范
 
 - 使用 pnpm，不使用 npm 或 yarn。
+- 只在 `main` 分支开发和提交，不直接在 `cloudflare` 分支修改。
+- 发布代码时，将同一个 `main` 提交分别推送到远端 `main` 和 `cloudflare`：
+  `git push origin main:main main:cloudflare`。
 - 所有 TypeScript 必须通过 `pnpm typecheck`。
 - 修改 `wrangler.jsonc` 后运行 `pnpm cf:types` 并提交生成的类型。
 - App 内容只放在 `data/apps.json`，App 资源只放在 `static/<app-key>/`。
